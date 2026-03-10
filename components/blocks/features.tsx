@@ -1,8 +1,6 @@
 "use client";
-import {
-  PageBlocksFeatures,
-  PageBlocksFeaturesItems,
-} from "../../tina/__generated__/types";
+type PageBlocksFeatures = any;
+type PageBlocksFeaturesItems = any;
 import type { Template } from 'tinacms';
 import { tinaField } from "tinacms/dist/react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
