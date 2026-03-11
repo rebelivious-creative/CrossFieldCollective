@@ -19,3 +19,14 @@ export default function HomePage() {
     </main>
   );
 }
+export async function generateStaticParams() {
+  try {
+    const pages = await client.queries.pageConnection();
+    return pages.data?.pageConnection?.edges?.map((edge) => ({
+      urlSegments: edge?.node?._sys.breadcrumbs,
+    })) || [];
+  } catch (error) {
+    console.error("Failed to fetch pages for static generation", error);
+    return [];
+  }
+}
