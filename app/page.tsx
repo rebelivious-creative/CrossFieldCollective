@@ -1,10 +1,13 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Script from "next/script";
 
 export default function Home() {
-  // This recreates your scroll reveal animations in React
+  // This tells React specifically which element to tilt for the Gyro effect
+  const heroTitleRef = useRef<HTMLHeadingElement>(null);
+
   useEffect(() => {
+    // 1. Scroll Reveal Animations
     const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -15,13 +18,38 @@ export default function Home() {
         });
     }, observerOptions);
     document.querySelectorAll('.reveal').forEach((el) => { observer.observe(el); });
+
+    // 2. The Gyro / 3D Mousemove Effect
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroTitleRef.current) {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 90;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 90;
+        heroTitleRef.current.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
+    // 3. Smooth Scrolling for Navigation
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function (this: HTMLAnchorElement, e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId) {
+              document.querySelector(targetId)?.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Cleanup listeners
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
     <main>
       <Script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" />
 
-      {/* Your Animated Pillars Background */}
       <div className="pillar-bg">
           <div className="pillar p1"></div><div className="pillar p2"></div><div className="pillar p3"></div><div className="pillar p4"></div>
           <div className="pillar p5"></div><div className="pillar p6"></div><div className="pillar p7"></div><div className="pillar p8"></div>
@@ -37,9 +65,10 @@ export default function Home() {
           </nav>
       </header>
 
-      <div className="container">
+      {/* The container that protects your layout from Tailwind */}
+      <div className="site-container">
           <section className="hero reveal">
-              {/* @ts-ignore - Ignores React warning for custom elements */}
+              {/* @ts-ignore */}
               <model-viewer 
                   src="assets/3d-logo.glb" 
                   auto-rotate="true" 
@@ -49,7 +78,10 @@ export default function Home() {
                   style={{ width: '100%', height: '350px', backgroundColor: 'transparent', outline: 'none', marginBottom: '20px' }}>
               </model-viewer>
 
-              <h1 id="hero_title">Building Growth Infrastructure<br/>for Ambitious SMEs</h1>
+              {/* The Gyro Title! */}
+              <h1 ref={heroTitleRef} id="hero_title" style={{ display: 'inline-block', transition: 'transform 0.1s ease-out' }}>
+                Building Growth Infrastructure<br/>for Ambitious SMEs
+              </h1>
               <p className="hero-sub" id="hero_sub">Crossfield Collective aligns brand, systems, automation, and strategic networks to help SMEs scale beyond survival mode.</p>
           </section>
 
@@ -110,7 +142,7 @@ export default function Home() {
       <footer id="contact" className="reveal">
           <h2>Ready to build your growth infrastructure?</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '30px', fontSize: '1.1rem' }}>All engagements begin with a Growth Diagnostic Session.</p>
-          <a href="https://wa.me/60123456789?text=Hi%20Crossfield%20Collective,%20I%20would%20like%20to%20book%20a%20Growth%20Diagnostic%20Session." className="cta-btn" target="_blank" rel="noreferrer">Direct Line</a>
+          <a href="https://wa.me/60123456789" className="cta-btn" target="_blank" rel="noreferrer">Direct Line</a>
       </footer>
     </main>
   );
