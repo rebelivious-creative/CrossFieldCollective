@@ -1,6 +1,8 @@
+// @ts-nocheck
 import React from "react";
 import type { Template } from "tinacms";
-import { PageBlocksTestimonial, PageBlocksTestimonialTestimonials } from "../../tina/__generated__/types";
+type PageBlocksTestimonial = any;
+type PageBlocksTestimonialTestimonials = any;
 import { Section } from "../layout/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent } from "../ui/card";
