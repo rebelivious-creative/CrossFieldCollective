@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React from 'react';
-import client from '../../tina/__generated__/client';
 
 export default function HomePage() {
   return (
@@ -20,16 +19,4 @@ export default function HomePage() {
       </p>
     </main>
   );
-}
-
-export async function generateStaticParams() {
-  try {
-    const pages = await client.queries.pageConnection();
-    return pages.data?.pageConnection?.edges?.map((edge) => ({
-      urlSegments: edge?.node?._sys.breadcrumbs,
-    })) || [];
-  } catch (error) {
-    console.error("Failed to fetch pages for static generation", error);
-    return [];
-  }
 }
