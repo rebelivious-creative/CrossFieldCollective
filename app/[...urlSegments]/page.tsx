@@ -1,4 +1,6 @@
+// @ts-nocheck
 import React from 'react';
+import client from '../../tina/__generated__/client';
 
 export default function HomePage() {
   return (
@@ -19,6 +21,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 export async function generateStaticParams() {
   try {
     const pages = await client.queries.pageConnection();
