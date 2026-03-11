@@ -7,12 +7,11 @@ import client from '../../tina/__generated__/client';
 export default function HomePage() {
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#000' }}>
-      <Image 
-        src={logo} 
-        alt="Crossfield Logo" 
-        width={250}
-        style={{ marginBottom: '2rem' }} 
-      />
+     <img 
+  src="https://rebelivious-creative.github.io/CrossFieldCollective/assets/main-logo.png" 
+  alt="Crossfield Logo" 
+  style={{ width: '250px', marginBottom: '2rem' }} 
+/>
       
       <h1 style={{ fontSize: '3rem', fontWeight: 'bold', letterSpacing: '-0.05em', color: '#fff' }}>
         CROSSFIELD <span style={{ color: '#990000' }}>WEB</span>
