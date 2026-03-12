@@ -22,7 +22,6 @@ export default function ClientPage(props: any) {
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    // Scroll Reveal
     const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -34,7 +33,6 @@ export default function ClientPage(props: any) {
     }, observerOptions);
     document.querySelectorAll('.reveal').forEach((el) => { observer.observe(el); });
 
-    // Gyro Effect
     const handleMouseMove = (e: MouseEvent) => {
       if (heroTitleRef.current) {
         const xAxis = (window.innerWidth / 2 - e.pageX) / 90;
@@ -44,7 +42,6 @@ export default function ClientPage(props: any) {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Smooth Scroll
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function (this: HTMLAnchorElement, e) {
             e.preventDefault();
@@ -60,7 +57,6 @@ export default function ClientPage(props: any) {
     };
   }, []);
 
-  // --- THE COLOR THEME LOGIC ---
   const isDefault = data.page.useDefaultTheme !== false; 
   const customBg = data.page.bgColor || "#020112";
   const customGlow1 = data.page.glowColor1 || "#0028a3";
@@ -74,7 +70,6 @@ export default function ClientPage(props: any) {
     <main style={dynamicMainStyle}>
       <Script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" />
 
-      {/* Dynamic Animated Pillars */}
       <div className="pillar-bg">
           <div className="pillar p1" style={dynamicGlow1}></div>
           <div className="pillar p2" style={dynamicGlow2}></div>
@@ -116,11 +111,7 @@ export default function ClientPage(props: any) {
               >
                 {data.page.heroTitle}
               </h1>
-              <p 
-                className="hero-sub" 
-                id="hero_sub"
-                data-tina-field={tinaField(data.page, "heroSub")}
-              >
+              <p className="hero-sub" id="hero_sub" data-tina-field={tinaField(data.page, "heroSub")}>
                 {data.page.heroSub}
               </p>
           </section>
@@ -131,11 +122,7 @@ export default function ClientPage(props: any) {
                   <div className="bento-card reveal" style={{ gridColumn: '1 / -1', padding: '60px' }}>
                       <p style={{ fontSize: '1.8rem', color: 'white', lineHeight: 1.4, maxWidth: '100%' }}>Sustainable growth requires structure, clarity, and aligned systems.</p>
                       <br/>
-                      <p 
-                        id="about_text" 
-                        style={{ fontSize: '1.2rem', maxWidth: '100%' }}
-                        data-tina-field={tinaField(data.page, "aboutText")}
-                      >
+                      <p id="about_text" style={{ fontSize: '1.2rem', maxWidth: '100%' }} data-tina-field={tinaField(data.page, "aboutText")}>
                         {data.page.aboutText}
                       </p>
                   </div>
@@ -146,19 +133,19 @@ export default function ClientPage(props: any) {
               <h2 className="section-title reveal">The Growth Ecosystem</h2>
               <div className="bento-grid">
                   <div className="bento-card image-card reveal" id="eco-img-box" style={{ transitionDelay: '0.1s' }}>
-                      <img id="eco_img" src="assets/ecosystem.jpg" alt="Growth Ecosystem" />
+                      <img id="eco_img" src={data.page.ecoImg} alt="Growth Ecosystem" data-tina-field={tinaField(data.page, "ecoImg")} />
                   </div>
                   <div className="bento-card reveal" id="eco-card-1" style={{ transitionDelay: '0.2s' }}>
-                      <h3>Brand Architecture</h3>
-                      <p>We refine positioning, narrative, and market clarity so growth is aligned and differentiated.</p>
+                      <h3 data-tina-field={tinaField(data.page, "ecoTitle1")}>{data.page.ecoTitle1}</h3>
+                      <p data-tina-field={tinaField(data.page, "ecoText1")}>{data.page.ecoText1}</p>
                   </div>
                   <div className="bento-card reveal" id="eco-card-2" style={{ transitionDelay: '0.3s' }}>
-                      <h3>Automation Design</h3>
-                      <p>We integrate smart automation to reduce manual strain and increase efficiency.</p>
+                      <h3 data-tina-field={tinaField(data.page, "ecoTitle2")}>{data.page.ecoTitle2}</h3>
+                      <p data-tina-field={tinaField(data.page, "ecoText2")}>{data.page.ecoText2}</p>
                   </div>
                   <div className="bento-card reveal" id="eco-network" style={{ transitionDelay: '0.4s' }}>
-                      <h3>Strategic Network</h3>
-                      <p>We connect SMEs to the right ecosystem, including cross-border partnerships, SME collaborations, and industry introductions.</p>
+                      <h3 data-tina-field={tinaField(data.page, "ecoTitle3")}>{data.page.ecoTitle3}</h3>
+                      <p data-tina-field={tinaField(data.page, "ecoText3")}>{data.page.ecoText3}</p>
                   </div>
               </div>
           </section>
@@ -167,28 +154,32 @@ export default function ClientPage(props: any) {
               <h2 className="section-title reveal">Growth Stages</h2>
               <div className="bento-grid">
                   <div className="bento-card image-card reveal" id="stages-img-box" style={{ transitionDelay: '0.1s' }}>
-                      <img src="assets/stages.jpg" alt="Growth Stages Diagram" />
+                      <img src={data.page.stagesImg} alt="Growth Stages Diagram" data-tina-field={tinaField(data.page, "stagesImg")} />
                   </div>
                   <div className="bento-card reveal" id="stages-card-1" style={{ transitionDelay: '0.2s' }}>
-                      <h3>Foundation</h3>
-                      <p>For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.</p>
+                      <h3 data-tina-field={tinaField(data.page, "stagesTitle1")}>{data.page.stagesTitle1}</h3>
+                      <p data-tina-field={tinaField(data.page, "stagesText1")}>{data.page.stagesText1}</p>
                   </div>
                   <div className="bento-card reveal" id="stages-card-2" style={{ transitionDelay: '0.3s' }}>
-                      <h3>Structure</h3>
-                      <p>For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.</p>
+                      <h3 data-tina-field={tinaField(data.page, "stagesTitle2")}>{data.page.stagesTitle2}</h3>
+                      <p data-tina-field={tinaField(data.page, "stagesText2")}>{data.page.stagesText2}</p>
                   </div>
                   <div className="bento-card reveal" id="stages-card-3" style={{ transitionDelay: '0.4s' }}>
-                      <h3>Expansion</h3>
-                      <p>For SMEs entering regional or new market growth. Outcome: Sustainable, structured expansion.</p>
+                      <h3 data-tina-field={tinaField(data.page, "stagesTitle3")}>{data.page.stagesTitle3}</h3>
+                      <p data-tina-field={tinaField(data.page, "stagesText3")}>{data.page.stagesText3}</p>
                   </div>
               </div>
           </section>
       </div>
 
       <footer id="contact" className="reveal">
-          <h2>Ready to build your growth infrastructure?</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '30px', fontSize: '1.1rem' }}>All engagements begin with a Growth Diagnostic Session.</p>
-          <a href="https://wa.me/60123456789" className="cta-btn" target="_blank" rel="noreferrer">Direct Line</a>
+          <h2 data-tina-field={tinaField(data.page, "footerTitle")}>{data.page.footerTitle}</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '30px', fontSize: '1.1rem' }} data-tina-field={tinaField(data.page, "footerSub")}>
+            {data.page.footerSub}
+          </p>
+          <a href={`https://wa.me/${data.page.contactPhone}`} className="cta-btn" target="_blank" rel="noreferrer" data-tina-field={tinaField(data.page, "contactPhone")}>
+            Direct Line
+          </a>
       </footer>
     </main>
   );
