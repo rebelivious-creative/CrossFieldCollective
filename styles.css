@@ -12,19 +12,27 @@
     --card-hover: rgba(109, 121, 194, 0.15);
 }
 
-body { 
-    margin: 0; 
+/* Kills the stretch by forcing strict borders */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body { 
+    margin: 0;
+    padding: 0; 
+    width: 100%;
+    max-width: 100%;
     font-family: 'Helvetica Neue', Arial, sans-serif; 
     color: var(--text-main); 
-    overflow-x: hidden; 
+    overflow-x: hidden; /* Absolutely prevents horizontal scrolling */
     line-height: 1.6;
     background-color: var(--bg-base); 
     top: 0 !important;
 }
 
-/* Background Animation */
+/* Background Animation - Changed from vw/vh to 100% */
 .pillar-bg {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;
     z-index: -2; display: flex; background: var(--bg-base);
 }
 .pillar { flex: 1; border-right: 1px solid rgba(255,255,255,0.02); position: relative; overflow: hidden; }
@@ -50,11 +58,14 @@ body {
 }
 
 /* Layout & Elements */
-.container { max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 10;}
+.site-container { 
+    max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 5%; position: relative; z-index: 10;
+}
 
+/* Header perfectly centered without stretching */
 header { 
-    padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; 
-    position: fixed; top: 0; width: 100vw; background: rgba(2, 1, 18, 0.7);
+    padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; 
+    position: fixed; top: 0; left: 0; width: 100%; background: rgba(2, 1, 18, 0.7);
     backdrop-filter: blur(20px); z-index: 100; border-bottom: 1px solid var(--card-border);
 }
 .logo { font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; text-transform: uppercase;}
@@ -67,19 +78,19 @@ nav a:hover { color: #6d79c2; }
 
 .hero { 
     min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-    align-items: center; text-align: center; padding: 100px 5vw 50px; perspective: 1000px;
+    align-items: center; text-align: center; padding: 100px 0 50px; perspective: 1000px;
 }
 h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 20px; line-height: 1.2; letter-spacing: -1px; }
 .hero-sub { color: var(--text-muted); font-size: 1.2rem; max-width: 700px; margin: 0 auto; }
 
-.section { padding: 120px 5vw; text-align: center; }
+.section { padding: 120px 0; text-align: center; }
 .section-title {
     font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase;
     border-bottom: 1px solid var(--card-border); padding-bottom: 20px; display: inline-block;
 }
 
 /* Bento Grid */
-.bento-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+.bento-grid { display: grid; gap: 24px; grid-template-columns: 1fr; width: 100%; }
 
 .bento-card {
     background: var(--card-bg); backdrop-filter: blur(15px); padding: 50px 40px; 
@@ -117,7 +128,7 @@ h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 20px; line-height: 1.
 .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
-footer { padding: 100px 5vw; text-align: center; background: rgba(0, 0, 0, 0.4); border-top: 1px solid var(--card-border); position: relative; z-index: 10; }
+footer { padding: 100px 5%; text-align: center; background: rgba(0, 0, 0, 0.4); border-top: 1px solid var(--card-border); position: relative; z-index: 10; width: 100%; box-sizing: border-box; }
 .cta-btn {
     display: inline-block; margin-top: 30px; padding: 18px 45px; background: #ffffff; color: var(--bg-base);
     text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 40px; 
