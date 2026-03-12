@@ -3,6 +3,15 @@ import { useEffect, useRef } from "react";
 import Script from "next/script";
 import { useTina, tinaField } from "tinacms/dist/react";
 
+declare global {
+  // biome-ignore lint/style/noNamespace: Required to declare custom 3D web components
+  namespace JSX {
+    interface IntrinsicElements {
+      "model-viewer": any;
+    }
+  }
+}
+
 export default function ClientPage(props: any) {
   const { data } = useTina({
     query: props.query,
@@ -57,7 +66,6 @@ export default function ClientPage(props: any) {
   const customGlow1 = data.page.glowColor1 || "#0028a3";
   const customGlow2 = data.page.glowColor2 || "#6d79c2";
 
-  // This overrides your styles.css variables if they turn off the default switch
   const dynamicMainStyle = isDefault ? {} : { "--bg-base": customBg } as React.CSSProperties;
   const dynamicGlow1 = isDefault ? undefined : { "--glow-color": customGlow1 } as React.CSSProperties;
   const dynamicGlow2 = isDefault ? undefined : { "--glow-color": customGlow2 } as React.CSSProperties;
