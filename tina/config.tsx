@@ -12,9 +12,11 @@ export default defineConfig({
         name: "page",
         label: "Pages",
         path: "content/pages",
-        format: "md",
-        ui: { router: () => "/" },
         fields: [
+          { type: "boolean", name: "useDefaultTheme", label: "Use Default Crossfield Blue Theme?", description: "Turn this ON to use the official brand colors. Turn it OFF to use the custom gradient colors below." },
+          { type: "string", name: "bgColor", label: "Custom Background Color", ui: { component: "color" } },
+          { type: "string", name: "glowColor1", label: "Custom Gradient Glow 1", ui: { component: "color" } },
+          { type: "string", name: "glowColor2", label: "Custom Gradient Glow 2", ui: { component: "color" } },
           { type: "string", name: "heroTitle", label: "Hero Title", ui: { component: "textarea" } },
           { type: "string", name: "heroSub", label: "Hero Subtext", ui: { component: "textarea" } },
           { type: "string", name: "aboutText", label: "About Text", ui: { component: "textarea" } },
