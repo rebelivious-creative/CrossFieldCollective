@@ -61,13 +61,23 @@ export default function ClientPage(props: any) {
   const customBg = data.page.bgColor || "#020112";
   const customGlow1 = data.page.glowColor1 || "#0028a3";
   const customGlow2 = data.page.glowColor2 || "#6d79c2";
+  
+  const customFont = data.page.fontSelection || "Helvetica Neue";
 
-  const dynamicMainStyle = isDefault ? {} : { "--bg-base": customBg } as React.CSSProperties;
+  const dynamicMainStyle = {
+    ...(isDefault ? {} : { "--bg-base": customBg }),
+    fontFamily: customFont === "Helvetica Neue" ? "'Helvetica Neue', Arial, sans-serif" : `'${customFont}', sans-serif`
+  } as React.CSSProperties;
+
   const dynamicGlow1 = isDefault ? undefined : { "--glow-color": customGlow1 } as React.CSSProperties;
   const dynamicGlow2 = isDefault ? undefined : { "--glow-color": customGlow2 } as React.CSSProperties;
 
   return (
     <main style={dynamicMainStyle}>
+      {customFont !== 'Helvetica Neue' && (
+          <link href={`https://fonts.googleapis.com/css2?family=${customFont.replace(' ', '+')}:wght@400;600;800&display=swap`} rel="stylesheet" />
+      )}
+
       <Script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" />
 
       <div className="pillar-bg">

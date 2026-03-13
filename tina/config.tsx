@@ -12,8 +12,9 @@ export default defineConfig({
         name: "page",
         label: "Pages",
         path: "content/pages",
-        fields: [
+       fields: [
           { type: "boolean", name: "useDefaultTheme", label: "Use Default Crossfield Blue Theme?", description: "Turn OFF to use custom colors." },
+          { type: "string", name: "fontSelection", label: "Website Font", options: ["Inter", "Playfair Display", "Syne", "Space Grotesk", "Helvetica Neue"] },
           { type: "string", name: "bgColor", label: "Custom Background Color", ui: { component: "color" } },
           { type: "string", name: "glowColor1", label: "Custom Gradient Glow 1", ui: { component: "color" } },
           { type: "string", name: "glowColor2", label: "Custom Gradient Glow 2", ui: { component: "color" } },
