@@ -107,8 +107,10 @@ export default function ClientPage(props: any) {
       </header>
 
       <div className="site-container">
-        {/* THE NEW LEGO BLOCK RENDERER */}
+        {/* RENDERS ALL BLOCKS EXCEPT THE FOOTER */}
         {data.page.blocks?.map((block: any, index: number) => {
+          if (block.__typename === "PageBlocksFooter") return null;
+
           switch (block.__typename) {
             case "PageBlocksHero":
               return (
@@ -116,18 +118,10 @@ export default function ClientPage(props: any) {
                     {/* @ts-ignore */}
                     <model-viewer 
                         src="assets/3d-logo.glb" 
-                        auto-rotate="true" 
-                        camera-controls="true" 
-                        disable-zoom="true" 
-                        exposure="0.8"
+                        auto-rotate="true" camera-controls="true" disable-zoom="true" exposure="0.8"
                         style={{ width: '100%', height: '350px', backgroundColor: 'transparent', outline: 'none', marginBottom: '20px' }}>
                     </model-viewer>
-
-                    <h1 
-                        id="hero_title" 
-                        style={{ display: 'inline-block', transition: 'transform 0.1s ease-out', whiteSpace: 'pre-wrap' }}
-                        data-tina-field={tinaField(block, "heroTitle")}
-                    >
+                    <h1 id="hero_title" style={{ display: 'inline-block', transition: 'transform 0.1s ease-out', whiteSpace: 'pre-wrap' }} data-tina-field={tinaField(block, "heroTitle")}>
                         {block.heroTitle}
                     </h1>
                     <p className="hero-sub" id="hero_sub" data-tina-field={tinaField(block, "heroSub")}>
@@ -135,7 +129,6 @@ export default function ClientPage(props: any) {
                     </p>
                 </section>
               );
-
             case "PageBlocksAbout":
               return (
                 <section key={index} id="about" className="section">
@@ -151,7 +144,6 @@ export default function ClientPage(props: any) {
                     </div>
                 </section>
               );
-
             case "PageBlocksEcosystem":
               return (
                 <section key={index} id="ecosystem" className="section">
@@ -175,7 +167,6 @@ export default function ClientPage(props: any) {
                     </div>
                 </section>
               );
-
             case "PageBlocksStages":
               return (
                 <section key={index} id="stages" className="section">
@@ -199,25 +190,29 @@ export default function ClientPage(props: any) {
                     </div>
                 </section>
               );
-
-            case "PageBlocksFooter":
-              return (
-                <footer key={index} id="contact" className="reveal">
-                    <h2 data-tina-field={tinaField(block, "footerTitle")}>{block.footerTitle}</h2>
-                    <p style={{ color: 'var(--text-muted)', marginBottom: '30px', fontSize: '1.1rem' }} data-tina-field={tinaField(block, "footerSub")}>
-                        {block.footerSub}
-                    </p>
-                    <a href={`https://wa.me/${block.contactPhone}`} className="cta-btn" target="_blank" rel="noreferrer" data-tina-field={tinaField(block, "contactPhone")}>
-                        Direct Line
-                    </a>
-                </footer>
-              );
-
             default:
               return null;
           }
         })}
       </div>
+
+      {/* RENDERS ONLY THE FOOTER OUTSIDE THE CONTAINER */}
+      {data.page.blocks?.map((block: any, index: number) => {
+        if (block.__typename === "PageBlocksFooter") {
+          return (
+            <footer key={index} id="contact" className="reveal">
+                <h2 data-tina-field={tinaField(block, "footerTitle")}>{block.footerTitle}</h2>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '30px', fontSize: '1.1rem' }} data-tina-field={tinaField(block, "footerSub")}>
+                    {block.footerSub}
+                </p>
+                <a href={`https://wa.me/${block.contactPhone}`} className="cta-btn" target="_blank" rel="noreferrer" data-tina-field={tinaField(block, "contactPhone")}>
+                    Direct Line
+                </a>
+            </footer>
+          );
+        }
+        return null;
+      })}
     </main>
   );
 }
