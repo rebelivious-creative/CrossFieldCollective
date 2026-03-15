@@ -13,7 +13,7 @@ blocks:
   - aboutText: We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.
     _template: about
   - stagesImg: /assets/stages.jpg
-    stagesTitle1: Foundation
+    stagesTitle1: Foundation!
     stagesText1: 'For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.'
     stagesTitle2: Structure
     stagesText2: 'For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.'
