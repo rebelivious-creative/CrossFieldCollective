@@ -47,14 +47,19 @@ export default function ClientPage(props: any) {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    // 3. Smooth Scrolling
+    // 3. Smooth Scrolling & Real Links
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function (this: HTMLAnchorElement, e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
-            if (targetId) {
-              document.querySelector(targetId)?.scrollIntoView({ behavior: 'smooth' });
+            
+            // If it is a scroll link (starts with /#), do the smooth scroll
+            if (targetId && targetId.startsWith('/#')) {
+                e.preventDefault();
+                // Remove the / to find the ID on the page
+                const id = targetId.replace('/', '');
+                document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
             }
+            // Otherwise, let it act like a normal link and load the new page!
         });
     });
 
@@ -96,13 +101,19 @@ export default function ClientPage(props: any) {
           <div className="pillar p8" style={dynamicGlow2}></div>
       </div>
 
-      <header>
+<header>
           <div className="logo">Crossfield Collective</div>
           <nav>
-              <a href="#about">About</a>
-              <a href="#ecosystem">Ecosystem</a>
-              <a href="#stages">Stages</a>
-              <a href="#contact">Contact</a>
+              {/* The original scrolling links (updated with a / so they work everywhere) */}
+              <a href="/#about">About</a>
+              <a href="/#ecosystem">Ecosystem</a>
+              <a href="/#stages">Stages</a>
+              
+              {/* Option A: Opens the new page in the same window */}
+              <a href="/services">Services</a>
+
+              {/* Option B: Opens the new page in a brand new browser tab */}
+              <a href="/services" target="_blank" rel="noopener noreferrer">New Tab Page</a>
           </nav>
       </header>
 
