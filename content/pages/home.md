@@ -16,7 +16,7 @@ ecoTitle2: Automation Design
 ecoText2: We integrate smart automation to reduce manual strain and increase efficiency.
 ecoTitle3: Strategic Network
 ecoText3: 'We connect SMEs to the right ecosystem, including cross-border partnerships, SME collaborations, and industry introductions.'
-stagesImg: /assets/stages.jpg
+stagesImg: /assets/Gato meme.jpg
 stagesTitle1: Foundation
 stagesText1: 'For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.'
 stagesTitle2: Structure
