@@ -101,19 +101,13 @@ export default function ClientPage(props: any) {
           <div className="pillar p8" style={dynamicGlow2}></div>
       </div>
 
-<header>
+      <header>
           <div className="logo">Crossfield Collective</div>
           <nav>
-              {/* The original scrolling links (updated with a / so they work everywhere) */}
-              <a href="/#about">About</a>
-              <a href="/#ecosystem">Ecosystem</a>
-              <a href="/#stages">Stages</a>
-              
-              {/* Option A: Opens the new page in the same window */}
-              <a href="/services">Services</a>
-
-              {/* Option B: Opens the new page in a brand new browser tab */}
-              <a href="/services" target="_blank" rel="noopener noreferrer">New Tab Page</a>
+              {/* This automatically pulls the links she creates in TinaCMS */}
+              {data.page.navLinks?.map((link: any, index: number) => (
+                <a key={index} href={link.url}>{link.label}</a>
+              ))}
           </nav>
       </header>
 

@@ -85,7 +85,20 @@ export default defineConfig({
           { type: "string", name: "glowColor1", label: "Custom Gradient Glow 1", ui: { component: "color" } },
           { type: "string", name: "glowColor2", label: "Custom Gradient Glow 2", ui: { component: "color" } },
           
-          // THE NEW MODULAR SYSTEM
+          // DYNAMIC NAVIGATION LINKS (So she can add new pages to the menu)
+          {
+            type: "object",
+            list: true,
+            name: "navLinks",
+            label: "Navigation Menu Links",
+            ui: { itemProps: (item: any) => ({ label: item?.label || "New Link" }) },
+            fields: [
+              { type: "string", name: "label", label: "Button Name (e.g., Services)" },
+              { type: "string", name: "url", label: "Link URL (e.g., /services or /#about)" },
+            ],
+          },
+
+          // THE MODULAR SYSTEM
           {
             type: "object",
             list: true,
