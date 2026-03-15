@@ -32,5 +32,7 @@ blocks:
     footerSub: All engagements begin with a Growth Diagnostic Session.
     contactPhone: '60123456789'
     _template: footer
+  - heroTitle: TRYYY
+    _template: hero
 ---
 
