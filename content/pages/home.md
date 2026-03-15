@@ -1,6 +1,6 @@
 ---
 useDefaultTheme: true
-fontSelection: Syne
+fontSelection: Helvetica Neue
 bgColor: '#020112'
 glowColor1: '#0028a3'
 glowColor2: '#6d79c2'
