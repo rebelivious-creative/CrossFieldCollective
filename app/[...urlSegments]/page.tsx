@@ -33,3 +33,16 @@ export async function generateStaticParams() {
     return [];
   }
 }
+
+export function generateStaticParams() {
+  return [
+    { urlSegments: ['services'] }
+  ];
+}
+
+// This tells Next.js exactly which dynamic pages to build
+export async function generateStaticParams() {
+  return [
+    { urlSegments: ['services'] } 
+  ];
+}
