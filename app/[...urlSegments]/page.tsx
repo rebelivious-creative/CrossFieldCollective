@@ -2,27 +2,41 @@
 import React from 'react';
 import client from '../../tina/__generated__/client';
 
-export default function Page() {
+export default async function Page({ params }) {
+  const { urlSegments } = await params;
+  
+  // 1. Fetch data from Tina for this specific page
+  const data = await client.queries.page({
+    relativePath: `${urlSegments.join('/')}.md`,
+  });
+
+  const pageData = data.data.page;
+
+  // 2. Map the data to your UI
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#000' }}>
-      <img 
-        src="https://rebelivious-creative.github.io/CrossFieldCollective/assets/main-logo.png" 
-        alt="Crossfield Logo" 
-        style={{ width: '250px', marginBottom: '2rem' }} 
-      />
-      
-      <h1 style={{ fontSize: '3rem', fontWeight: 'bold', letterSpacing: '-0.05em', color: '#fff', textAlign: 'center' }}>
-        CROSSFIELD <span style={{ color: '#990000' }}>WEB</span>
-      </h1>
-      
-      <p style={{ color: '#fff', opacity: 0.7, maxWidth: '600px', textAlign: 'center', padding: '0 1rem' }}>
-        Redefining creative agency standards with a rebellion against the ordinary.
-      </p>
+    <main style={{ 
+      minHeight: '100vh', 
+      backgroundColor: pageData.bgColor || '#000',
+      fontFamily: pageData.fontSelection || 'Inter',
+      color: '#fff'
+    }}>
+      {/* Example of pulling the Hero Title from your blocks */}
+      {pageData.blocks?.map((block, i) => {
+        if (block.__typename === 'PageBlocksHero') {
+          return (
+            <section key={i} style={{ padding: '4rem 2rem', textAlign: 'center' }}>
+               <h1 style={{ fontSize: '4rem' }}>{block.heroTitle}</h1>
+               <p>{block.heroSub}</p>
+            </section>
+          );
+        }
+        // Add more blocks (About, Ecosystem, etc.) here as you build them
+        return <div key={i}>Section: {block.__typename} (Edit in Tina to see content)</div>;
+      })}
     </main>
   );
 }
 
-// Just ONE dynamic fetcher left!
 export async function generateStaticParams() {
   try {
     const pages = await client.queries.pageConnection();
@@ -30,7 +44,6 @@ export async function generateStaticParams() {
       urlSegments: edge?.node?._sys.breadcrumbs,
     })) || [];
   } catch (error) {
-    console.error("Failed to fetch pages for static generation", error);
     return [];
   }
 }
