@@ -101,12 +101,18 @@ export default function ClientPage(props: any) {
           <div className="pillar p8" style={dynamicGlow2}></div>
       </div>
 
-      <header>
+<header>
           <div className="logo">Crossfield Collective</div>
           <nav>
-              {/* This automatically pulls the links she creates in TinaCMS */}
               {data.page.navLinks?.map((link: any, index: number) => (
-                <a key={index} href={link.url}>{link.label}</a>
+                <a 
+                  key={index} 
+                  href={link.url} 
+                  target={link.newTab ? "_blank" : "_self"} 
+                  rel={link.newTab ? "noopener noreferrer" : undefined}
+                >
+                  {link.label}
+                </a>
               ))}
           </nav>
       </header>

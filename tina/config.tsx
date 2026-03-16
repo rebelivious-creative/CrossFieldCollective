@@ -93,8 +93,9 @@ export default defineConfig({
             label: "Navigation Menu Links",
             ui: { itemProps: (item: any) => ({ label: item?.label || "New Link" }) },
             fields: [
-              { type: "string", name: "label", label: "Button Name (e.g., Services)" },
-              { type: "string", name: "url", label: "Link URL (e.g., /services or /#about)" },
+              { type: "string", name: "label", label: "Button Name" },
+              { type: "string", name: "url", label: "Link URL" },
+              { type: "boolean", name: "newTab", label: "Open in New Tab?" }, // THE SWITCH
             ],
           },
 
