@@ -22,6 +22,7 @@ export default function Page() {
   );
 }
 
+// Just ONE dynamic fetcher left!
 export async function generateStaticParams() {
   try {
     const pages = await client.queries.pageConnection();
@@ -32,17 +33,4 @@ export async function generateStaticParams() {
     console.error("Failed to fetch pages for static generation", error);
     return [];
   }
-}
-
-export function generateStaticParams() {
-  return [
-    { urlSegments: ['services'] }
-  ];
-}
-
-// This tells Next.js exactly which dynamic pages to build
-export async function generateStaticParams() {
-  return [
-    { urlSegments: ['services'] } 
-  ];
 }
