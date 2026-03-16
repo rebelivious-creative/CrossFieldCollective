@@ -6,7 +6,7 @@ glowColor1: '#0028a3'
 glowColor2: '#6d79c2'
 navLinks:
   - label: Test
-    url: test
+    url: /service
     newTab: true
 blocks:
   - heroTitle: |
