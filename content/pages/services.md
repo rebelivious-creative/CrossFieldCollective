@@ -1,5 +1,5 @@
 ---
-useDefaultTheme: true
+useDefaultTheme: false
 fontSelection: Inter
 blocks:
   - _template: hero
