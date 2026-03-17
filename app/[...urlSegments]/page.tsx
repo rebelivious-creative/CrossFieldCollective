@@ -1,3 +1,4 @@
+// Poking Git with a stick
 // @ts-nocheck
 import React from 'react';
 import client from '../../tina/__generated__/client';
