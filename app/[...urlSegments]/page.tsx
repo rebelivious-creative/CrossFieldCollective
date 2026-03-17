@@ -27,8 +27,6 @@ export default async function Page({ params }) {
 
   const pageData = data.data.page;
 
-  // SMART BACKGROUND LOGIC
-  // If "Use Default Theme" is ON (or empty), let the template's beautiful animated background shine through.
   const useDefault = pageData.useDefaultTheme !== false; 
   const bg = useDefault ? 'transparent' : (pageData.bgColor || 'transparent');
   const glow1 = pageData.glowColor1 || 'transparent';
@@ -44,8 +42,6 @@ export default async function Page({ params }) {
       }}
     >
       
-      {/* --- CUSTOM ATMOSPHERIC GLOWS --- */}
-      {/* Only runs if the user turns OFF the default theme and picks custom glow colors */}
       {!useDefault && (
         <div className="absolute inset-0 z-0 pointer-events-none fixed">
           <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] opacity-40 blur-[120px] mix-blend-screen rounded-full" style={{ backgroundColor: glow1 }} />
@@ -53,21 +49,17 @@ export default async function Page({ params }) {
         </div>
       )}
 
-      {/* --- ALL CONTENT --- */}
       <div className="relative z-10">
         
-        {/* Navigation Menu */}
         {pageData.navLinks && pageData.navLinks.length > 0 && (
-          <nav style={{ width: '100%', padding: '1.5rem 2rem', display: 'flex', justifyContent: 'center', gap: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', position: 'sticky', top: 0, zIndex: 50, backgroundColor: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(12px)' }}>
+          <nav className="w-full px-8 py-6 flex justify-center gap-10 border-b border-white/5 sticky top-0 z-50 bg-black/50 backdrop-blur-md">
             {pageData.navLinks.map((link, i) => (
               <a 
                 key={i} 
                 href={link.url} 
                 target={link.newTab ? "_blank" : "_self"} 
                 rel={link.newTab ? "noopener noreferrer" : ""}
-                style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.85rem', opacity: 0.8 }}
-                onMouseEnter={(e) => e.target.style.opacity = '1'}
-                onMouseLeave={(e) => e.target.style.opacity = '0.8'}
+                className="text-white no-underline font-bold uppercase tracking-[2px] text-[0.85rem] opacity-80 hover:opacity-100 hover:text-[#990000] transition-all duration-300"
               >
                 {link.label}
               </a>
@@ -75,7 +67,6 @@ export default async function Page({ params }) {
           </nav>
         )}
         
-        {/* Block Renderer */}
         {pageData.blocks?.map((block, i) => {
           switch (block.__typename) {
             
@@ -86,47 +77,47 @@ export default async function Page({ params }) {
             
             case 'PageBlocksAbout':
               return (
-                <section key={i} style={{ padding: '8rem 1.5rem', maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '2rem', color: '#990000', letterSpacing: '-0.02em' }}>
+                <section key={i} className="py-32 px-6 max-w-[800px] mx-auto text-center">
+                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-[2.5rem] font-bold mb-8 text-[#990000] tracking-tight">
                     About Us
                   </TextEffect>
                   <AnimatedGroup variants={transitionVariants}>
-                    <p style={{ lineHeight: '1.8', opacity: 0.7, fontSize: '1.15rem' }}>{block.aboutText}</p>
+                    <p className="leading-[1.8] opacity-70 text-[1.15rem]">{block.aboutText}</p>
                   </AnimatedGroup>
                 </section>
               );
 
             case 'PageBlocksEcosystem':
               return (
-                <section key={i} style={{ padding: '8rem 1.5rem', textAlign: 'center', maxWidth: '1200px', margin: '0 auto' }}>
-                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '4rem', letterSpacing: '-0.02em' }}>
+                <section key={i} className="py-32 px-6 text-center max-w-[1200px] mx-auto">
+                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-5xl font-bold mb-16 tracking-tight">
                     The Ecosystem
                   </TextEffect>
                   
                   {block.ecoImg && (
                     <AnimatedGroup variants={transitionVariants}>
-                      <img src={block.ecoImg} alt="Ecosystem" style={{ maxWidth: '100%', height: 'auto', marginBottom: '5rem', borderRadius: '16px', boxShadow: '0 30px 60px -15px rgba(0,0,0,0.8)' }} />
+                      <img src={block.ecoImg} alt="Ecosystem" className="max-w-full h-auto mb-20 rounded-2xl border border-white/5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] mx-auto" />
                     </AnimatedGroup>
                   )}
                   
                   <AnimatedGroup variants={transitionVariants}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                       {(block.ecoTitle1 || block.ecoText1) && (
-                        <div style={{ padding: '3rem', backgroundColor: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', textAlign: 'left', backdropFilter: 'blur(10px)' }}>
-                          <h3 style={{ marginBottom: '1rem', color: '#990000', fontSize: '1.5rem', fontWeight: 'bold' }}>{block.ecoTitle1}</h3>
-                          <p style={{ opacity: 0.7, lineHeight: '1.7' }}>{block.ecoText1}</p>
+                        <div className="p-12 bg-white/5 border border-white/5 rounded-3xl text-left backdrop-blur-md">
+                          <h3 className="mb-4 text-[#990000] text-2xl font-bold">{block.ecoTitle1}</h3>
+                          <p className="opacity-60 leading-[1.7]">{block.ecoText1}</p>
                         </div>
                       )}
                       {(block.ecoTitle2 || block.ecoText2) && (
-                        <div style={{ padding: '3rem', backgroundColor: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', textAlign: 'left', backdropFilter: 'blur(10px)' }}>
-                          <h3 style={{ marginBottom: '1rem', color: '#990000', fontSize: '1.5rem', fontWeight: 'bold' }}>{block.ecoTitle2}</h3>
-                          <p style={{ opacity: 0.7, lineHeight: '1.7' }}>{block.ecoText2}</p>
+                        <div className="p-12 bg-white/5 border border-white/5 rounded-3xl text-left backdrop-blur-md">
+                          <h3 className="mb-4 text-[#990000] text-2xl font-bold">{block.ecoTitle2}</h3>
+                          <p className="opacity-60 leading-[1.7]">{block.ecoText2}</p>
                         </div>
                       )}
                       {(block.ecoTitle3 || block.ecoText3) && (
-                        <div style={{ padding: '3rem', backgroundColor: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', textAlign: 'left', backdropFilter: 'blur(10px)' }}>
-                          <h3 style={{ marginBottom: '1rem', color: '#990000', fontSize: '1.5rem', fontWeight: 'bold' }}>{block.ecoTitle3}</h3>
-                          <p style={{ opacity: 0.7, lineHeight: '1.7' }}>{block.ecoText3}</p>
+                        <div className="p-12 bg-white/5 border border-white/5 rounded-3xl text-left backdrop-blur-md">
+                          <h3 className="mb-4 text-[#990000] text-2xl font-bold">{block.ecoTitle3}</h3>
+                          <p className="opacity-60 leading-[1.7]">{block.ecoText3}</p>
                         </div>
                       )}
                     </div>
@@ -136,35 +127,35 @@ export default async function Page({ params }) {
 
             case 'PageBlocksStages':
               return (
-                <section key={i} style={{ padding: '8rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
-                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' style={{ fontSize: '3rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '4rem', letterSpacing: '-0.02em' }}>
+                <section key={i} className="py-32 px-6 max-w-[1200px] mx-auto">
+                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-5xl font-bold text-center mb-16 tracking-tight">
                     Our Stages
                   </TextEffect>
                   
                   {block.stagesImg && (
                     <AnimatedGroup variants={transitionVariants}>
-                      <img src={block.stagesImg} alt="Stages" style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto 5rem', borderRadius: '16px' }} />
+                      <img src={block.stagesImg} alt="Stages" className="max-w-full h-auto block mx-auto mb-20 rounded-2xl border border-white/5" />
                     </AnimatedGroup>
                   )}
                   
                   <AnimatedGroup variants={transitionVariants}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
                       {(block.stagesTitle1 || block.stagesText1) && (
-                        <div style={{ borderLeft: '3px solid #990000', paddingLeft: '2rem' }}>
-                          <h4 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }}>{block.stagesTitle1}</h4>
-                          <p style={{ opacity: 0.7, lineHeight: '1.7' }}>{block.stagesText1}</p>
+                        <div className="border-l-[2px] border-[#990000]/50 pl-8">
+                          <h4 className="text-[1.75rem] font-bold mb-4">{block.stagesTitle1}</h4>
+                          <p className="opacity-60 leading-[1.7]">{block.stagesText1}</p>
                         </div>
                       )}
                       {(block.stagesTitle2 || block.stagesText2) && (
-                        <div style={{ borderLeft: '3px solid #990000', paddingLeft: '2rem' }}>
-                          <h4 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }}>{block.stagesTitle2}</h4>
-                          <p style={{ opacity: 0.7, lineHeight: '1.7' }}>{block.stagesText2}</p>
+                        <div className="border-l-[2px] border-[#990000]/50 pl-8">
+                          <h4 className="text-[1.75rem] font-bold mb-4">{block.stagesTitle2}</h4>
+                          <p className="opacity-60 leading-[1.7]">{block.stagesText2}</p>
                         </div>
                       )}
                       {(block.stagesTitle3 || block.stagesText3) && (
-                        <div style={{ borderLeft: '3px solid #990000', paddingLeft: '2rem' }}>
-                          <h4 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }}>{block.stagesTitle3}</h4>
-                          <p style={{ opacity: 0.7, lineHeight: '1.7' }}>{block.stagesText3}</p>
+                        <div className="border-l-[2px] border-[#990000]/50 pl-8">
+                          <h4 className="text-[1.75rem] font-bold mb-4">{block.stagesTitle3}</h4>
+                          <p className="opacity-60 leading-[1.7]">{block.stagesText3}</p>
                         </div>
                       )}
                     </div>
@@ -174,20 +165,18 @@ export default async function Page({ params }) {
 
             case 'PageBlocksFooter':
               return (
-                <footer key={i} style={{ padding: '6rem 1.5rem 4rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '4rem', backgroundColor: 'rgba(0,0,0,0.2)' }}>
-                  <TextEffect preset='fade-in-blur' speedSegment={0.5} as='h2' style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>
+                <footer key={i} className="py-24 px-6 text-center border-t border-white/5 mt-16 bg-black/20">
+                  <TextEffect preset='fade-in-blur' speedSegment={0.5} as='h2' className="text-[2.5rem] font-bold">
                     {block.footerTitle}
                   </TextEffect>
                   <AnimatedGroup variants={transitionVariants}>
-                    <p style={{ opacity: 0.5, marginTop: '1.5rem', marginBottom: '3rem', fontSize: '1.1rem' }}>{block.footerSub}</p>
+                    <p className="opacity-50 mt-6 mb-12 text-[1.1rem]">{block.footerSub}</p>
                     {block.contactPhone && (
                       <a 
                         href={`https://wa.me/${block.contactPhone}`} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        style={{ display: 'inline-block', padding: '1rem 2.5rem', backgroundColor: '#990000', color: '#fff', textDecoration: 'none', borderRadius: '50px', fontWeight: 'bold', transition: 'all 0.3s ease' }}
-                        onMouseEnter={(e) => { e.target.style.backgroundColor = '#cc0000'; e.target.style.transform = 'translateY(-2px)'; }}
-                        onMouseLeave={(e) => { e.target.style.backgroundColor = '#990000'; e.target.style.transform = 'translateY(0)'; }}
+                        className="inline-block px-10 py-4 bg-[#990000] text-white font-bold rounded-full transition-all duration-300 hover:bg-[#cc0000] hover:-translate-y-1"
                       >
                         Start a Project
                       </a>
