@@ -5,12 +5,12 @@ bgColor: '#0045EB'
 glowColor1: '#010958'
 glowColor2: '#0B269E'
 blocks:
-  - ecoImg: /assets/main-logo.png
-    ecoTitle1: test
-    ecoText1: test
-    ecoTitle2: test
-    _template: ecosystem
   - aboutText: test1
     _template: about
+  - ecoImg: /assets/3d-logo.glb
+    ecoText1: test2
+    ecoTitle2: test3
+    ecoText2: test4
+    _template: ecosystem
 ---
 
