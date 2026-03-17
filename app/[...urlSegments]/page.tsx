@@ -20,8 +20,25 @@ export default async function Page({ params }) {
       fontFamily: pageData.fontSelection || 'Inter',
       color: '#fff'
     }}>
+
+      {/* --- THE NAVIGATION MENU --- */}
+      {pageData.navLinks && pageData.navLinks.length > 0 && (
+        <nav style={{ width: '100%', padding: '1.5rem 2rem', display: 'flex', justifyContent: 'center', gap: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+          {pageData.navLinks.map((link, i) => (
+            <a 
+              key={i} 
+              href={link.url} 
+              target={link.newTab ? "_blank" : "_self"} 
+              rel={link.newTab ? "noopener noreferrer" : ""}
+              style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.9rem' }}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      )}
       
-      {/* 3. The Block Renderer */}
+      {/* --- THE BLOCK RENDERER --- */}
       {pageData.blocks?.map((block, i) => {
         switch (block.__typename) {
           
