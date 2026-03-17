@@ -15,8 +15,9 @@ const heroBlock: Template = {
 const aboutBlock: Template = {
   name: "about",
   label: "About Section",
-  ui: { itemProps: () => ({ label: "About Section" }) },
+  ui: { itemProps: (item: any) => ({ label: item?.sectionTitle || "About Section" }) },
   fields: [
+    { type: "string", name: "sectionTitle", label: "Section Title (e.g. ABOUT US)" },
     { type: "string", name: "aboutText", label: "About Text", ui: { component: "textarea" } },
   ],
 };
@@ -24,30 +25,42 @@ const aboutBlock: Template = {
 const ecosystemBlock: Template = {
   name: "ecosystem",
   label: "Ecosystem Section",
-  ui: { itemProps: () => ({ label: "Ecosystem Section" }) },
+  ui: { itemProps: (item: any) => ({ label: item?.sectionTitle || "Ecosystem Section" }) },
   fields: [
+    { type: "string", name: "sectionTitle", label: "Section Title (e.g. THE GROWTH ECOSYSTEM)" },
     { type: "image", name: "ecoImg", label: "Ecosystem Image" },
-    { type: "string", name: "ecoTitle1", label: "Eco Box 1 Title" },
-    { type: "string", name: "ecoText1", label: "Eco Box 1 Text", ui: { component: "textarea" } },
-    { type: "string", name: "ecoTitle2", label: "Eco Box 2 Title" },
-    { type: "string", name: "ecoText2", label: "Eco Box 2 Text", ui: { component: "textarea" } },
-    { type: "string", name: "ecoTitle3", label: "Eco Box 3 Title" },
-    { type: "string", name: "ecoText3", label: "Eco Box 3 Text", ui: { component: "textarea" } },
+    {
+      type: "object",
+      list: true,
+      name: "boxes",
+      label: "Ecosystem Cards (Add as many as you want!)",
+      ui: { itemProps: (item: any) => ({ label: item?.title || "New Card" }) },
+      fields: [
+        { type: "string", name: "title", label: "Card Title" },
+        { type: "string", name: "text", label: "Card Text", ui: { component: "textarea" } },
+      ],
+    },
   ],
 };
 
 const stagesBlock: Template = {
   name: "stages",
   label: "Stages Section",
-  ui: { itemProps: () => ({ label: "Stages Section" }) },
+  ui: { itemProps: (item: any) => ({ label: item?.sectionTitle || "Stages Section" }) },
   fields: [
+    { type: "string", name: "sectionTitle", label: "Section Title (e.g. GROWTH STAGES)" },
     { type: "image", name: "stagesImg", label: "Stages Image" },
-    { type: "string", name: "stagesTitle1", label: "Stages Box 1 Title" },
-    { type: "string", name: "stagesText1", label: "Stages Box 1 Text", ui: { component: "textarea" } },
-    { type: "string", name: "stagesTitle2", label: "Stages Box 2 Title" },
-    { type: "string", name: "stagesText2", label: "Stages Box 2 Text", ui: { component: "textarea" } },
-    { type: "string", name: "stagesTitle3", label: "Stages Box 3 Title" },
-    { type: "string", name: "stagesText3", label: "Stages Box 3 Text", ui: { component: "textarea" } },
+    {
+      type: "object",
+      list: true,
+      name: "boxes",
+      label: "Stages Cards (Add as many as you want!)",
+      ui: { itemProps: (item: any) => ({ label: item?.title || "New Card" }) },
+      fields: [
+        { type: "string", name: "title", label: "Card Title" },
+        { type: "string", name: "text", label: "Card Text", ui: { component: "textarea" } },
+      ],
+    },
   ],
 };
 

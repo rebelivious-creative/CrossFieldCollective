@@ -123,27 +123,12 @@ export default function ClientPage(props: any) {
           if (block.__typename === "PageBlocksFooter") return null;
 
           switch (block.__typename) {
-            case "PageBlocksHero":
-              return (
-                <section key={index} className="hero reveal">
-                    {/* @ts-ignore */}
-                    <model-viewer 
-                        src="assets/3d-logo.glb" 
-                        auto-rotate="true" camera-controls="true" disable-zoom="true" exposure="0.8"
-                        style={{ width: '100%', height: '350px', backgroundColor: 'transparent', outline: 'none', marginBottom: '20px' }}>
-                    </model-viewer>
-                    <h1 id="hero_title" style={{ display: 'inline-block', transition: 'transform 0.1s ease-out', whiteSpace: 'pre-wrap' }} data-tina-field={tinaField(block, "heroTitle")}>
-                        {block.heroTitle}
-                    </h1>
-                    <p className="hero-sub" id="hero_sub" data-tina-field={tinaField(block, "heroSub")}>
-                        {block.heroSub}
-                    </p>
-                </section>
-              );
-            case "PageBlocksAbout":
+case "PageBlocksAbout":
               return (
                 <section key={index} id="about" className="section">
-                    <h2 className="section-title reveal">About Us</h2>
+                    <h2 className="section-title reveal" data-tina-field={tinaField(block, "sectionTitle")}>
+                        {block.sectionTitle || "About Us"}
+                    </h2>
                     <div className="bento-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
                         {block.aboutText && (
                             <div className="bento-card reveal" style={{ gridColumn: '1 / -1', padding: '60px' }}>
@@ -152,6 +137,48 @@ export default function ClientPage(props: any) {
                                 </p>
                             </div>
                         )}
+                    </div>
+                </section>
+              );
+            case "PageBlocksEcosystem":
+              return (
+                <section key={index} id="ecosystem" className="section">
+                    <h2 className="section-title reveal" data-tina-field={tinaField(block, "sectionTitle")}>
+                        {block.sectionTitle || "The Growth Ecosystem"}
+                    </h2>
+                    <div className="bento-grid">
+                        {block.ecoImg && (
+                            <div className="bento-card image-card reveal" id="eco-img-box" style={{ transitionDelay: '0.1s' }}>
+                                <img id="eco_img" src={block.ecoImg} alt="Ecosystem" data-tina-field={tinaField(block, "ecoImg")} />
+                            </div>
+                        )}
+                        {block.boxes?.map((box: any, i: number) => (
+                            <div key={i} className="bento-card reveal" style={{ transitionDelay: `${0.2 + (i * 0.1)}s` }}>
+                                <h3 data-tina-field={tinaField(box, "title")}>{box.title}</h3>
+                                <p data-tina-field={tinaField(box, "text")}>{box.text}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+              );
+            case "PageBlocksStages":
+              return (
+                <section key={index} id="stages" className="section">
+                    <h2 className="section-title reveal" data-tina-field={tinaField(block, "sectionTitle")}>
+                        {block.sectionTitle || "Growth Stages"}
+                    </h2>
+                    <div className="bento-grid">
+                        {block.stagesImg && (
+                            <div className="bento-card image-card reveal" id="stages-img-box" style={{ transitionDelay: '0.1s' }}>
+                                <img src={block.stagesImg} alt="Stages" data-tina-field={tinaField(block, "stagesImg")} />
+                            </div>
+                        )}
+                        {block.boxes?.map((box: any, i: number) => (
+                            <div key={i} className="bento-card reveal" style={{ transitionDelay: `${0.2 + (i * 0.1)}s` }}>
+                                <h3 data-tina-field={tinaField(box, "title")}>{box.title}</h3>
+                                <p data-tina-field={tinaField(box, "text")}>{box.text}</p>
+                            </div>
+                        ))}
                     </div>
                 </section>
               );
