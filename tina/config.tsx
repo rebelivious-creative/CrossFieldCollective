@@ -1,3 +1,4 @@
+// Wake up TinaCloud
 import { defineConfig, Template } from "tinacms";
 
 // --- 1. DEFINE THE LEGO BLOCKS ---
