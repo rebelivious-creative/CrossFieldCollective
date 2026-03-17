@@ -7,6 +7,7 @@ glowColor2: '#6d79c2'
 navLinks:
   - label: Services
     url: /services
+    newTab: true
 blocks:
   - heroTitle: |
       Building Growth Infrastructure
