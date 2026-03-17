@@ -7,6 +7,9 @@ import { Features } from '@/components/blocks/features';
 import { Content } from '@/components/blocks/content';
 import { CallToAction } from '@/components/blocks/call-to-action';
 
+// THIS IS THE MAGIC WE WERE MISSING:
+import { Section } from '@/components/layout/section'; 
+
 import { AnimatedGroup } from '@/components/motion-primitives/animated-group';
 import { TextEffect } from '@/components/motion-primitives/text-effect';
 
@@ -28,58 +31,52 @@ export default async function Page({ params }) {
   const pageData = data.data.page;
 
   return (
-    <main className="relative min-h-screen bg-[#050505] text-white overflow-x-hidden">
+    <main className="flex flex-col min-h-screen text-white">
       
-      {/* --- BULLETPROOF PREMIUM BACKGROUND --- */}
-      {/* This ignores the CMS and forces a beautiful dark mode so the client can't break it */}
-      <div className="absolute inset-0 z-0 pointer-events-none fixed">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#990000] opacity-20 blur-[120px] rounded-full mix-blend-screen" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#0028a3] opacity-20 blur-[120px] rounded-full mix-blend-screen" />
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px', maskImage: 'radial-gradient(circle at center, black, transparent 80%)' }} />
-      </div>
-
-      {/* --- ALL CONTENT --- */}
-      <div className="relative z-10">
-        
-        {pageData.navLinks && pageData.navLinks.length > 0 && (
-          <nav className="w-full px-8 py-6 flex justify-center gap-10 border-b border-white/5 sticky top-0 z-50 bg-black/50 backdrop-blur-md">
-            {pageData.navLinks.map((link, i) => (
-              <a 
-                key={i} 
-                href={link.url} 
-                target={link.newTab ? "_blank" : "_self"} 
-                rel={link.newTab ? "noopener noreferrer" : ""}
-                className="text-white no-underline font-bold uppercase tracking-[2px] text-[0.85rem] opacity-80 hover:opacity-100 hover:text-[#990000] transition-all duration-300"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        )}
-        
-        {pageData.blocks?.map((block, i) => {
-          switch (block.__typename) {
-            
-            case 'PageBlocksHero': return <Hero key={i} data={block} />;
-            case 'PageBlocksFeatures': return <Features key={i} data={block} />;
-            case 'PageBlocksContent': return <Content key={i} data={block} />;
-            case 'PageBlocksCta': return <CallToAction key={i} data={block} />;
-            
-            case 'PageBlocksAbout':
-              return (
-                <section key={i} className="py-32 px-6 max-w-[800px] mx-auto text-center">
+      {/* Navigation Menu */}
+      {pageData.navLinks && pageData.navLinks.length > 0 && (
+        <nav className="w-full px-8 py-6 flex justify-center gap-10 border-b border-white/5 sticky top-0 z-50 bg-black/50 backdrop-blur-md">
+          {pageData.navLinks.map((link, i) => (
+            <a 
+              key={i} 
+              href={link.url} 
+              target={link.newTab ? "_blank" : "_self"} 
+              rel={link.newTab ? "noopener noreferrer" : ""}
+              className="text-white no-underline font-bold uppercase tracking-[2px] text-[0.85rem] opacity-80 hover:opacity-100 hover:text-[#990000] transition-all duration-300"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      )}
+      
+      {/* Block Renderer */}
+      {pageData.blocks?.map((block, i) => {
+        switch (block.__typename) {
+          
+          case 'PageBlocksHero': return <Hero key={i} data={block} />;
+          case 'PageBlocksFeatures': return <Features key={i} data={block} />;
+          case 'PageBlocksContent': return <Content key={i} data={block} />;
+          case 'PageBlocksCta': return <CallToAction key={i} data={block} />;
+          
+          case 'PageBlocksAbout':
+            return (
+              <Section key={i}>
+                <div className="py-24 px-6 max-w-[800px] mx-auto text-center">
                   <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-[2.5rem] font-bold mb-8 text-[#990000] tracking-tight">
                     About Us
                   </TextEffect>
                   <AnimatedGroup variants={transitionVariants}>
                     <p className="leading-[1.8] opacity-70 text-[1.15rem] text-white">{block.aboutText}</p>
                   </AnimatedGroup>
-                </section>
-              );
+                </div>
+              </Section>
+            );
 
-            case 'PageBlocksEcosystem':
-              return (
-                <section key={i} className="py-32 px-6 text-center max-w-[1200px] mx-auto">
+          case 'PageBlocksEcosystem':
+            return (
+              <Section key={i}>
+                <div className="py-24 px-6 text-center max-w-[1200px] mx-auto">
                   <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-5xl font-bold mb-16 tracking-tight text-white">
                     The Ecosystem
                   </TextEffect>
@@ -112,12 +109,14 @@ export default async function Page({ params }) {
                       )}
                     </div>
                   </AnimatedGroup>
-                </section>
-              );
+                </div>
+              </Section>
+            );
 
-            case 'PageBlocksStages':
-              return (
-                <section key={i} className="py-32 px-6 max-w-[1200px] mx-auto">
+          case 'PageBlocksStages':
+            return (
+              <Section key={i}>
+                <div className="py-24 px-6 max-w-[1200px] mx-auto">
                   <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-5xl font-bold text-center mb-16 tracking-tight text-white">
                     Our Stages
                   </TextEffect>
@@ -150,12 +149,14 @@ export default async function Page({ params }) {
                       )}
                     </div>
                   </AnimatedGroup>
-                </section>
-              );
+                </div>
+              </Section>
+            );
 
-            case 'PageBlocksFooter':
-              return (
-                <footer key={i} className="py-24 px-6 text-center border-t border-white/5 mt-16 bg-black/20">
+          case 'PageBlocksFooter':
+            return (
+              <Section key={i}>
+                <div className="py-24 px-6 text-center mt-8">
                   <TextEffect preset='fade-in-blur' speedSegment={0.5} as='h2' className="text-[2.5rem] font-bold text-white">
                     {block.footerTitle}
                   </TextEffect>
@@ -172,14 +173,14 @@ export default async function Page({ params }) {
                       </a>
                     )}
                   </AnimatedGroup>
-                </footer>
-              );
+                </div>
+              </Section>
+            );
 
-            default:
-              return null;
-          }
-        })}
-      </div>
+          default:
+            return null;
+        }
+      })}
     </main>
   );
 }
