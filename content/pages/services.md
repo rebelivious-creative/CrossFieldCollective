@@ -1,5 +1,5 @@
 ---
-useDefaultTheme: false
+useDefaultTheme: true
 fontSelection: Inter
 bgColor: '#0045EB'
 glowColor1: '#010958'
