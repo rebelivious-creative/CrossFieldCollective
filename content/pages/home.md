@@ -4,6 +4,9 @@ fontSelection: Inter
 bgColor: '#020112'
 glowColor1: '#0028a3'
 glowColor2: '#6d79c2'
+navLinks:
+  - label: Services
+    url: /services
 blocks:
   - heroTitle: |
       Building Growth Infrastructure
