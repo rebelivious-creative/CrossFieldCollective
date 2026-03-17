@@ -2,6 +2,25 @@
 import React from 'react';
 import client from '../../tina/__generated__/client';
 
+// 1. Import your template's beautiful built-in animated blocks
+import { Hero } from '@/components/blocks/hero';
+import { Features } from '@/components/blocks/features';
+import { Content } from '@/components/blocks/content';
+import { CallToAction } from '@/components/blocks/call-to-action';
+
+// 2. Import the animation tools for your custom blocks
+import { AnimatedGroup } from '@/components/motion-primitives/animated-group';
+import { TextEffect } from '@/components/motion-primitives/text-effect';
+
+// 3. Match the template's exact animation speed and bounce
+const transitionVariants = {
+  container: { visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } } },
+  item: {
+    hidden: { opacity: 0, filter: 'blur(12px)', y: 20 },
+    visible: { opacity: 1, filter: 'blur(0px)', y: 0, transition: { type: 'spring', bounce: 0.3, duration: 1.2 } },
+  },
+};
+
 export default async function Page({ params }) {
   const { urlSegments } = await params;
   
@@ -21,14 +40,14 @@ export default async function Page({ params }) {
 
       {/* --- THE NAVIGATION MENU --- */}
       {pageData.navLinks && pageData.navLinks.length > 0 && (
-        <nav style={{ width: '100%', padding: '1.5rem 2rem', display: 'flex', justifyContent: 'center', gap: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+        <nav className="w-full p-6 flex justify-center gap-10 border-b border-white/10 sticky top-0 z-50 backdrop-blur-md bg-black/50">
           {pageData.navLinks.map((link, i) => (
             <a 
               key={i} 
               href={link.url} 
               target={link.newTab ? "_blank" : "_self"} 
               rel={link.newTab ? "noopener noreferrer" : ""}
-              style={{ color: '#fff', textDecoration: 'none', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.9rem' }}
+              className="text-white no-underline font-bold uppercase tracking-widest text-sm hover:text-[#990000] transition-colors duration-300"
             >
               {link.label}
             </a>
@@ -40,92 +59,116 @@ export default async function Page({ params }) {
       {pageData.blocks?.map((block, i) => {
         switch (block.__typename) {
           
-          case 'PageBlocksHero':
-            return (
-              <section key={i} style={{ padding: '6rem 2rem', textAlign: 'center' }}>
-                <h1 style={{ fontSize: '4rem', fontWeight: 'bold', letterSpacing: '-0.05em' }}>{block.heroTitle}</h1>
-                <p style={{ opacity: 0.7, fontSize: '1.2rem', marginTop: '1rem', maxWidth: '600px', margin: '1rem auto 0' }}>{block.heroSub}</p>
-              </section>
-            );
+          /* USE THE BUILT-IN ANIMATED TEMPLATE BLOCKS */
+          case 'PageBlocksHero': return <Hero key={i} data={block} />;
+          case 'PageBlocksFeatures': return <Features key={i} data={block} />;
+          case 'PageBlocksContent': return <Content key={i} data={block} />;
+          case 'PageBlocksCta': return <CallToAction key={i} data={block} />;
           
+          /* YOUR CUSTOM ANIMATED BLOCKS */
           case 'PageBlocksAbout':
             return (
-              <section key={i} style={{ padding: '4rem 2rem', maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#990000' }}>About Us</h2>
-                <p style={{ lineHeight: '1.8', opacity: 0.9 }}>{block.aboutText}</p>
+              <section key={i} className="py-24 px-6 max-w-4xl mx-auto text-center">
+                <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-3xl font-bold mb-6 text-[#990000]">
+                  About Us
+                </TextEffect>
+                <AnimatedGroup variants={transitionVariants}>
+                  <p className="leading-relaxed opacity-90 text-lg">{block.aboutText}</p>
+                </AnimatedGroup>
               </section>
             );
 
           case 'PageBlocksEcosystem':
             return (
-              <section key={i} style={{ padding: '4rem 2rem', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>The Ecosystem</h2>
-                {block.ecoImg && <img src={block.ecoImg} alt="Ecosystem" style={{ maxWidth: '100%', height: 'auto', marginBottom: '3rem', borderRadius: '10px' }} />}
+              <section key={i} className="py-24 px-6 max-w-6xl mx-auto text-center">
+                <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-4xl font-bold mb-16">
+                  The Ecosystem
+                </TextEffect>
                 
-                <div style={{ display: 'flex', gap: '2rem', justifyItems: 'center', flexWrap: 'wrap', maxWidth: '1000px', margin: '0 auto' }}>
-                  {/* HIDDEN IF EMPTY RULES APPLIED HERE */}
+                {block.ecoImg && (
+                  <AnimatedGroup variants={transitionVariants}>
+                    <img src={block.ecoImg} alt="Ecosystem" className="max-w-full h-auto mb-16 mx-auto rounded-xl shadow-2xl ring-1 ring-white/10" />
+                  </AnimatedGroup>
+                )}
+                
+                <AnimatedGroup variants={transitionVariants} className="flex flex-wrap justify-center gap-8">
                   {(block.ecoTitle1 || block.ecoText1) && (
-                    <div style={{ flex: '1', minWidth: '250px', padding: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '10px' }}>
-                      <h3 style={{ marginBottom: '1rem', color: '#990000' }}>{block.ecoTitle1}</h3>
-                      <p style={{ opacity: 0.8 }}>{block.ecoText1}</p>
+                    <div className="flex-1 min-w-[280px] p-8 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors duration-300 text-left">
+                      <h3 className="mb-4 text-[#990000] text-xl font-bold">{block.ecoTitle1}</h3>
+                      <p className="opacity-80 leading-relaxed">{block.ecoText1}</p>
                     </div>
                   )}
                   {(block.ecoTitle2 || block.ecoText2) && (
-                    <div style={{ flex: '1', minWidth: '250px', padding: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '10px' }}>
-                      <h3 style={{ marginBottom: '1rem', color: '#990000' }}>{block.ecoTitle2}</h3>
-                      <p style={{ opacity: 0.8 }}>{block.ecoText2}</p>
+                    <div className="flex-1 min-w-[280px] p-8 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors duration-300 text-left">
+                      <h3 className="mb-4 text-[#990000] text-xl font-bold">{block.ecoTitle2}</h3>
+                      <p className="opacity-80 leading-relaxed">{block.ecoText2}</p>
                     </div>
                   )}
                   {(block.ecoTitle3 || block.ecoText3) && (
-                    <div style={{ flex: '1', minWidth: '250px', padding: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '10px' }}>
-                      <h3 style={{ marginBottom: '1rem', color: '#990000' }}>{block.ecoTitle3}</h3>
-                      <p style={{ opacity: 0.8 }}>{block.ecoText3}</p>
+                    <div className="flex-1 min-w-[280px] p-8 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors duration-300 text-left">
+                      <h3 className="mb-4 text-[#990000] text-xl font-bold">{block.ecoTitle3}</h3>
+                      <p className="opacity-80 leading-relaxed">{block.ecoText3}</p>
                     </div>
                   )}
-                </div>
+                </AnimatedGroup>
               </section>
             );
 
           case 'PageBlocksStages':
             return (
-              <section key={i} style={{ padding: '4rem 2rem' }}>
-                <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '3rem' }}>Our Stages</h2>
-                {block.stagesImg && <img src={block.stagesImg} alt="Stages" style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto 3rem', borderRadius: '10px' }} />}
+              <section key={i} className="py-24 px-6 max-w-6xl mx-auto">
+                <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-4xl font-bold text-center mb-16">
+                  Our Stages
+                </TextEffect>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', maxWidth: '1000px', margin: '0 auto' }}>
-                  {/* HIDDEN IF EMPTY RULES APPLIED HERE */}
+                {block.stagesImg && (
+                  <AnimatedGroup variants={transitionVariants}>
+                    <img src={block.stagesImg} alt="Stages" className="max-w-full h-auto mb-16 mx-auto rounded-xl shadow-2xl ring-1 ring-white/10" />
+                  </AnimatedGroup>
+                )}
+                
+                <AnimatedGroup variants={transitionVariants} className="grid grid-cols-1 md:grid-cols-3 gap-12">
                   {(block.stagesTitle1 || block.stagesText1) && (
-                    <div style={{ borderLeft: '3px solid #990000', paddingLeft: '1.5rem' }}>
-                      <h4 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{block.stagesTitle1}</h4>
-                      <p style={{ opacity: 0.7 }}>{block.stagesText1}</p>
+                    <div className="border-l-4 border-[#990000] pl-6">
+                      <h4 className="text-2xl font-bold mb-3">{block.stagesTitle1}</h4>
+                      <p className="opacity-70 leading-relaxed">{block.stagesText1}</p>
                     </div>
                   )}
                   {(block.stagesTitle2 || block.stagesText2) && (
-                    <div style={{ borderLeft: '3px solid #990000', paddingLeft: '1.5rem' }}>
-                      <h4 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{block.stagesTitle2}</h4>
-                      <p style={{ opacity: 0.7 }}>{block.stagesText2}</p>
+                    <div className="border-l-4 border-[#990000] pl-6">
+                      <h4 className="text-2xl font-bold mb-3">{block.stagesTitle2}</h4>
+                      <p className="opacity-70 leading-relaxed">{block.stagesText2}</p>
                     </div>
                   )}
                   {(block.stagesTitle3 || block.stagesText3) && (
-                    <div style={{ borderLeft: '3px solid #990000', paddingLeft: '1.5rem' }}>
-                      <h4 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{block.stagesTitle3}</h4>
-                      <p style={{ opacity: 0.7 }}>{block.stagesText3}</p>
+                    <div className="border-l-4 border-[#990000] pl-6">
+                      <h4 className="text-2xl font-bold mb-3">{block.stagesTitle3}</h4>
+                      <p className="opacity-70 leading-relaxed">{block.stagesText3}</p>
                     </div>
                   )}
-                </div>
+                </AnimatedGroup>
               </section>
             );
 
           case 'PageBlocksFooter':
             return (
-              <footer key={i} style={{ padding: '4rem 2rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '4rem' }}>
-                <h2 style={{ fontSize: '2rem', fontWeight: 'bold' }}>{block.footerTitle}</h2>
-                <p style={{ opacity: 0.6, marginTop: '1rem', marginBottom: '2rem' }}>{block.footerSub}</p>
-                {block.contactPhone && (
-                  <a href={`https://wa.me/${block.contactPhone}`} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '12px 24px', backgroundColor: '#25D366', color: '#fff', textDecoration: 'none', borderRadius: '5px', fontWeight: 'bold' }}>
-                    WhatsApp Us
-                  </a>
-                )}
+              <footer key={i} className="py-16 px-6 text-center border-t border-white/10 mt-16">
+                <TextEffect preset='fade-in-blur' speedSegment={0.5} as='h2' className="text-3xl font-bold">
+                  {block.footerTitle}
+                </TextEffect>
+                <AnimatedGroup variants={transitionVariants}>
+                  <p className="opacity-60 mt-4 mb-8 text-lg">{block.footerSub}</p>
+                  {block.contactPhone && (
+                    <a 
+                      href={`https://wa.me/${block.contactPhone}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="inline-block px-8 py-4 bg-[#25D366] text-white font-bold rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-105 transition-transform duration-300"
+                    >
+                      WhatsApp Us
+                    </a>
+                  )}
+                </AnimatedGroup>
               </footer>
             );
 
