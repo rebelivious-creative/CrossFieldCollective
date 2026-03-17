@@ -143,15 +143,15 @@ export default function ClientPage(props: any) {
             case "PageBlocksAbout":
               return (
                 <section key={index} id="about" className="section">
-                    <h2 className="section-title reveal">About Crossfield</h2>
+                    <h2 className="section-title reveal">About Us</h2>
                     <div className="bento-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-                        <div className="bento-card reveal" style={{ gridColumn: '1 / -1', padding: '60px' }}>
-                            <p style={{ fontSize: '1.8rem', color: 'white', lineHeight: 1.4, maxWidth: '100%' }}>Sustainable growth requires structure, clarity, and aligned systems.</p>
-                            <br/>
-                            <p id="about_text" style={{ fontSize: '1.2rem', maxWidth: '100%' }} data-tina-field={tinaField(block, "aboutText")}>
-                                {block.aboutText}
-                            </p>
-                        </div>
+                        {block.aboutText && (
+                            <div className="bento-card reveal" style={{ gridColumn: '1 / -1', padding: '60px' }}>
+                                <p id="about_text" style={{ fontSize: '1.4rem', color: 'white', lineHeight: 1.6, maxWidth: '100%' }} data-tina-field={tinaField(block, "aboutText")}>
+                                    {block.aboutText}
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </section>
               );
@@ -160,21 +160,29 @@ export default function ClientPage(props: any) {
                 <section key={index} id="ecosystem" className="section">
                     <h2 className="section-title reveal">The Growth Ecosystem</h2>
                     <div className="bento-grid">
-                        <div className="bento-card image-card reveal" id="eco-img-box" style={{ transitionDelay: '0.1s' }}>
-                            <img id="eco_img" src={block.ecoImg} alt="Growth Ecosystem" data-tina-field={tinaField(block, "ecoImg")} />
-                        </div>
-                        <div className="bento-card reveal" id="eco-card-1" style={{ transitionDelay: '0.2s' }}>
-                            <h3 data-tina-field={tinaField(block, "ecoTitle1")}>{block.ecoTitle1}</h3>
-                            <p data-tina-field={tinaField(block, "ecoText1")}>{block.ecoText1}</p>
-                        </div>
-                        <div className="bento-card reveal" id="eco-card-2" style={{ transitionDelay: '0.3s' }}>
-                            <h3 data-tina-field={tinaField(block, "ecoTitle2")}>{block.ecoTitle2}</h3>
-                            <p data-tina-field={tinaField(block, "ecoText2")}>{block.ecoText2}</p>
-                        </div>
-                        <div className="bento-card reveal" id="eco-network" style={{ transitionDelay: '0.4s' }}>
-                            <h3 data-tina-field={tinaField(block, "ecoTitle3")}>{block.ecoTitle3}</h3>
-                            <p data-tina-field={tinaField(block, "ecoText3")}>{block.ecoText3}</p>
-                        </div>
+                        {block.ecoImg && (
+                            <div className="bento-card image-card reveal" id="eco-img-box" style={{ transitionDelay: '0.1s' }}>
+                                <img id="eco_img" src={block.ecoImg} alt="Growth Ecosystem" data-tina-field={tinaField(block, "ecoImg")} />
+                            </div>
+                        )}
+                        {(block.ecoTitle1 || block.ecoText1) && (
+                            <div className="bento-card reveal" id="eco-card-1" style={{ transitionDelay: '0.2s' }}>
+                                <h3 data-tina-field={tinaField(block, "ecoTitle1")}>{block.ecoTitle1}</h3>
+                                <p data-tina-field={tinaField(block, "ecoText1")}>{block.ecoText1}</p>
+                            </div>
+                        )}
+                        {(block.ecoTitle2 || block.ecoText2) && (
+                            <div className="bento-card reveal" id="eco-card-2" style={{ transitionDelay: '0.3s' }}>
+                                <h3 data-tina-field={tinaField(block, "ecoTitle2")}>{block.ecoTitle2}</h3>
+                                <p data-tina-field={tinaField(block, "ecoText2")}>{block.ecoText2}</p>
+                            </div>
+                        )}
+                        {(block.ecoTitle3 || block.ecoText3) && (
+                            <div className="bento-card reveal" id="eco-network" style={{ transitionDelay: '0.4s' }}>
+                                <h3 data-tina-field={tinaField(block, "ecoTitle3")}>{block.ecoTitle3}</h3>
+                                <p data-tina-field={tinaField(block, "ecoText3")}>{block.ecoText3}</p>
+                            </div>
+                        )}
                     </div>
                 </section>
               );
@@ -183,21 +191,29 @@ export default function ClientPage(props: any) {
                 <section key={index} id="stages" className="section">
                     <h2 className="section-title reveal">Growth Stages</h2>
                     <div className="bento-grid">
-                        <div className="bento-card image-card reveal" id="stages-img-box" style={{ transitionDelay: '0.1s' }}>
-                            <img src={block.stagesImg} alt="Growth Stages Diagram" data-tina-field={tinaField(block, "stagesImg")} />
-                        </div>
-                        <div className="bento-card reveal" id="stages-card-1" style={{ transitionDelay: '0.2s' }}>
-                            <h3 data-tina-field={tinaField(block, "stagesTitle1")}>{block.stagesTitle1}</h3>
-                            <p data-tina-field={tinaField(block, "stagesText1")}>{block.stagesText1}</p>
-                        </div>
-                        <div className="bento-card reveal" id="stages-card-2" style={{ transitionDelay: '0.3s' }}>
-                            <h3 data-tina-field={tinaField(block, "stagesTitle2")}>{block.stagesTitle2}</h3>
-                            <p data-tina-field={tinaField(block, "stagesText2")}>{block.stagesText2}</p>
-                        </div>
-                        <div className="bento-card reveal" id="stages-card-3" style={{ transitionDelay: '0.4s' }}>
-                            <h3 data-tina-field={tinaField(block, "stagesTitle3")}>{block.stagesTitle3}</h3>
-                            <p data-tina-field={tinaField(block, "stagesText3")}>{block.stagesText3}</p>
-                        </div>
+                        {block.stagesImg && (
+                            <div className="bento-card image-card reveal" id="stages-img-box" style={{ transitionDelay: '0.1s' }}>
+                                <img src={block.stagesImg} alt="Growth Stages Diagram" data-tina-field={tinaField(block, "stagesImg")} />
+                            </div>
+                        )}
+                        {(block.stagesTitle1 || block.stagesText1) && (
+                            <div className="bento-card reveal" id="stages-card-1" style={{ transitionDelay: '0.2s' }}>
+                                <h3 data-tina-field={tinaField(block, "stagesTitle1")}>{block.stagesTitle1}</h3>
+                                <p data-tina-field={tinaField(block, "stagesText1")}>{block.stagesText1}</p>
+                            </div>
+                        )}
+                        {(block.stagesTitle2 || block.stagesText2) && (
+                            <div className="bento-card reveal" id="stages-card-2" style={{ transitionDelay: '0.3s' }}>
+                                <h3 data-tina-field={tinaField(block, "stagesTitle2")}>{block.stagesTitle2}</h3>
+                                <p data-tina-field={tinaField(block, "stagesText2")}>{block.stagesText2}</p>
+                            </div>
+                        )}
+                        {(block.stagesTitle3 || block.stagesText3) && (
+                            <div className="bento-card reveal" id="stages-card-3" style={{ transitionDelay: '0.4s' }}>
+                                <h3 data-tina-field={tinaField(block, "stagesTitle3")}>{block.stagesTitle3}</h3>
+                                <p data-tina-field={tinaField(block, "stagesText3")}>{block.stagesText3}</p>
+                            </div>
+                        )}
                     </div>
                 </section>
               );
