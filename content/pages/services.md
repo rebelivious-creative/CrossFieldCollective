@@ -10,5 +10,7 @@ blocks:
     ecoText1: test
     ecoTitle2: test
     _template: ecosystem
+  - aboutText: test1
+    _template: about
 ---
 
