@@ -27,28 +27,18 @@ export default async function Page({ params }) {
 
   const pageData = data.data.page;
 
-  const useDefault = pageData.useDefaultTheme !== false; 
-  const bg = useDefault ? 'transparent' : (pageData.bgColor || 'transparent');
-  const glow1 = pageData.glowColor1 || 'transparent';
-  const glow2 = pageData.glowColor2 || 'transparent';
-
   return (
-    <main 
-      className="relative min-h-screen w-full overflow-x-hidden"
-      style={{ 
-        backgroundColor: bg,
-        fontFamily: pageData.fontSelection || 'Inter',
-        color: '#fff' 
-      }}
-    >
+    <main className="relative min-h-screen bg-[#050505] text-white overflow-x-hidden">
       
-      {!useDefault && (
-        <div className="absolute inset-0 z-0 pointer-events-none fixed">
-          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] opacity-40 blur-[120px] mix-blend-screen rounded-full" style={{ backgroundColor: glow1 }} />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] opacity-40 blur-[120px] mix-blend-screen rounded-full" style={{ backgroundColor: glow2 }} />
-        </div>
-      )}
+      {/* --- BULLETPROOF PREMIUM BACKGROUND --- */}
+      {/* This ignores the CMS and forces a beautiful dark mode so the client can't break it */}
+      <div className="absolute inset-0 z-0 pointer-events-none fixed">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#990000] opacity-20 blur-[120px] rounded-full mix-blend-screen" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#0028a3] opacity-20 blur-[120px] rounded-full mix-blend-screen" />
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px', maskImage: 'radial-gradient(circle at center, black, transparent 80%)' }} />
+      </div>
 
+      {/* --- ALL CONTENT --- */}
       <div className="relative z-10">
         
         {pageData.navLinks && pageData.navLinks.length > 0 && (
@@ -82,7 +72,7 @@ export default async function Page({ params }) {
                     About Us
                   </TextEffect>
                   <AnimatedGroup variants={transitionVariants}>
-                    <p className="leading-[1.8] opacity-70 text-[1.15rem]">{block.aboutText}</p>
+                    <p className="leading-[1.8] opacity-70 text-[1.15rem] text-white">{block.aboutText}</p>
                   </AnimatedGroup>
                 </section>
               );
@@ -90,7 +80,7 @@ export default async function Page({ params }) {
             case 'PageBlocksEcosystem':
               return (
                 <section key={i} className="py-32 px-6 text-center max-w-[1200px] mx-auto">
-                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-5xl font-bold mb-16 tracking-tight">
+                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-5xl font-bold mb-16 tracking-tight text-white">
                     The Ecosystem
                   </TextEffect>
                   
@@ -105,19 +95,19 @@ export default async function Page({ params }) {
                       {(block.ecoTitle1 || block.ecoText1) && (
                         <div className="p-12 bg-white/5 border border-white/5 rounded-3xl text-left backdrop-blur-md">
                           <h3 className="mb-4 text-[#990000] text-2xl font-bold">{block.ecoTitle1}</h3>
-                          <p className="opacity-60 leading-[1.7]">{block.ecoText1}</p>
+                          <p className="opacity-60 leading-[1.7] text-white">{block.ecoText1}</p>
                         </div>
                       )}
                       {(block.ecoTitle2 || block.ecoText2) && (
                         <div className="p-12 bg-white/5 border border-white/5 rounded-3xl text-left backdrop-blur-md">
                           <h3 className="mb-4 text-[#990000] text-2xl font-bold">{block.ecoTitle2}</h3>
-                          <p className="opacity-60 leading-[1.7]">{block.ecoText2}</p>
+                          <p className="opacity-60 leading-[1.7] text-white">{block.ecoText2}</p>
                         </div>
                       )}
                       {(block.ecoTitle3 || block.ecoText3) && (
                         <div className="p-12 bg-white/5 border border-white/5 rounded-3xl text-left backdrop-blur-md">
                           <h3 className="mb-4 text-[#990000] text-2xl font-bold">{block.ecoTitle3}</h3>
-                          <p className="opacity-60 leading-[1.7]">{block.ecoText3}</p>
+                          <p className="opacity-60 leading-[1.7] text-white">{block.ecoText3}</p>
                         </div>
                       )}
                     </div>
@@ -128,7 +118,7 @@ export default async function Page({ params }) {
             case 'PageBlocksStages':
               return (
                 <section key={i} className="py-32 px-6 max-w-[1200px] mx-auto">
-                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-5xl font-bold text-center mb-16 tracking-tight">
+                  <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h2' className="text-5xl font-bold text-center mb-16 tracking-tight text-white">
                     Our Stages
                   </TextEffect>
                   
@@ -142,20 +132,20 @@ export default async function Page({ params }) {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
                       {(block.stagesTitle1 || block.stagesText1) && (
                         <div className="border-l-[2px] border-[#990000]/50 pl-8">
-                          <h4 className="text-[1.75rem] font-bold mb-4">{block.stagesTitle1}</h4>
-                          <p className="opacity-60 leading-[1.7]">{block.stagesText1}</p>
+                          <h4 className="text-[1.75rem] font-bold mb-4 text-white">{block.stagesTitle1}</h4>
+                          <p className="opacity-60 leading-[1.7] text-white">{block.stagesText1}</p>
                         </div>
                       )}
                       {(block.stagesTitle2 || block.stagesText2) && (
                         <div className="border-l-[2px] border-[#990000]/50 pl-8">
-                          <h4 className="text-[1.75rem] font-bold mb-4">{block.stagesTitle2}</h4>
-                          <p className="opacity-60 leading-[1.7]">{block.stagesText2}</p>
+                          <h4 className="text-[1.75rem] font-bold mb-4 text-white">{block.stagesTitle2}</h4>
+                          <p className="opacity-60 leading-[1.7] text-white">{block.stagesText2}</p>
                         </div>
                       )}
                       {(block.stagesTitle3 || block.stagesText3) && (
                         <div className="border-l-[2px] border-[#990000]/50 pl-8">
-                          <h4 className="text-[1.75rem] font-bold mb-4">{block.stagesTitle3}</h4>
-                          <p className="opacity-60 leading-[1.7]">{block.stagesText3}</p>
+                          <h4 className="text-[1.75rem] font-bold mb-4 text-white">{block.stagesTitle3}</h4>
+                          <p className="opacity-60 leading-[1.7] text-white">{block.stagesText3}</p>
                         </div>
                       )}
                     </div>
@@ -166,11 +156,11 @@ export default async function Page({ params }) {
             case 'PageBlocksFooter':
               return (
                 <footer key={i} className="py-24 px-6 text-center border-t border-white/5 mt-16 bg-black/20">
-                  <TextEffect preset='fade-in-blur' speedSegment={0.5} as='h2' className="text-[2.5rem] font-bold">
+                  <TextEffect preset='fade-in-blur' speedSegment={0.5} as='h2' className="text-[2.5rem] font-bold text-white">
                     {block.footerTitle}
                   </TextEffect>
                   <AnimatedGroup variants={transitionVariants}>
-                    <p className="opacity-50 mt-6 mb-12 text-[1.1rem]">{block.footerSub}</p>
+                    <p className="opacity-50 mt-6 mb-12 text-[1.1rem] text-white">{block.footerSub}</p>
                     {block.contactPhone && (
                       <a 
                         href={`https://wa.me/${block.contactPhone}`} 
