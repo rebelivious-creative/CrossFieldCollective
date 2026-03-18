@@ -123,7 +123,24 @@ export default function ClientPage(props: any) {
           if (block.__typename === "PageBlocksFooter") return null;
 
           switch (block.__typename) {
-case "PageBlocksAbout":
+            case "PageBlocksHero":
+              return (
+                <section key={index} className="hero reveal">
+                    {/* @ts-ignore */}
+                    <model-viewer 
+                        src="/assets/3d-logo.glb" 
+                        auto-rotate="true" camera-controls="true" disable-zoom="true" exposure="0.8"
+                        style={{ width: '100%', height: '350px', backgroundColor: 'transparent', outline: 'none', marginBottom: '20px' }}>
+                    </model-viewer>
+                    <h1 id="hero_title" style={{ display: 'inline-block', transition: 'transform 0.1s ease-out', whiteSpace: 'pre-wrap' }} data-tina-field={tinaField(block, "heroTitle")}>
+                        {block.heroTitle}
+                    </h1>
+                    <p className="hero-sub" id="hero_sub" data-tina-field={tinaField(block, "heroSub")}>
+                        {block.heroSub}
+                    </p>
+                </section>
+              );
+            case "PageBlocksAbout":
               return (
                 <section key={index} id="about" className="section">
                     <h2 className="section-title reveal" data-tina-field={tinaField(block, "sectionTitle")}>
@@ -179,68 +196,6 @@ case "PageBlocksAbout":
                                 <p data-tina-field={tinaField(box, "text")}>{box.text}</p>
                             </div>
                         ))}
-                    </div>
-                </section>
-              );
-            case "PageBlocksEcosystem":
-              return (
-                <section key={index} id="ecosystem" className="section">
-                    <h2 className="section-title reveal">The Growth Ecosystem</h2>
-                    <div className="bento-grid">
-                        {block.ecoImg && (
-                            <div className="bento-card image-card reveal" id="eco-img-box" style={{ transitionDelay: '0.1s' }}>
-                                <img id="eco_img" src={block.ecoImg} alt="Growth Ecosystem" data-tina-field={tinaField(block, "ecoImg")} />
-                            </div>
-                        )}
-                        {(block.ecoTitle1 || block.ecoText1) && (
-                            <div className="bento-card reveal" id="eco-card-1" style={{ transitionDelay: '0.2s' }}>
-                                <h3 data-tina-field={tinaField(block, "ecoTitle1")}>{block.ecoTitle1}</h3>
-                                <p data-tina-field={tinaField(block, "ecoText1")}>{block.ecoText1}</p>
-                            </div>
-                        )}
-                        {(block.ecoTitle2 || block.ecoText2) && (
-                            <div className="bento-card reveal" id="eco-card-2" style={{ transitionDelay: '0.3s' }}>
-                                <h3 data-tina-field={tinaField(block, "ecoTitle2")}>{block.ecoTitle2}</h3>
-                                <p data-tina-field={tinaField(block, "ecoText2")}>{block.ecoText2}</p>
-                            </div>
-                        )}
-                        {(block.ecoTitle3 || block.ecoText3) && (
-                            <div className="bento-card reveal" id="eco-network" style={{ transitionDelay: '0.4s' }}>
-                                <h3 data-tina-field={tinaField(block, "ecoTitle3")}>{block.ecoTitle3}</h3>
-                                <p data-tina-field={tinaField(block, "ecoText3")}>{block.ecoText3}</p>
-                            </div>
-                        )}
-                    </div>
-                </section>
-              );
-            case "PageBlocksStages":
-              return (
-                <section key={index} id="stages" className="section">
-                    <h2 className="section-title reveal">Growth Stages</h2>
-                    <div className="bento-grid">
-                        {block.stagesImg && (
-                            <div className="bento-card image-card reveal" id="stages-img-box" style={{ transitionDelay: '0.1s' }}>
-                                <img src={block.stagesImg} alt="Growth Stages Diagram" data-tina-field={tinaField(block, "stagesImg")} />
-                            </div>
-                        )}
-                        {(block.stagesTitle1 || block.stagesText1) && (
-                            <div className="bento-card reveal" id="stages-card-1" style={{ transitionDelay: '0.2s' }}>
-                                <h3 data-tina-field={tinaField(block, "stagesTitle1")}>{block.stagesTitle1}</h3>
-                                <p data-tina-field={tinaField(block, "stagesText1")}>{block.stagesText1}</p>
-                            </div>
-                        )}
-                        {(block.stagesTitle2 || block.stagesText2) && (
-                            <div className="bento-card reveal" id="stages-card-2" style={{ transitionDelay: '0.3s' }}>
-                                <h3 data-tina-field={tinaField(block, "stagesTitle2")}>{block.stagesTitle2}</h3>
-                                <p data-tina-field={tinaField(block, "stagesText2")}>{block.stagesText2}</p>
-                            </div>
-                        )}
-                        {(block.stagesTitle3 || block.stagesText3) && (
-                            <div className="bento-card reveal" id="stages-card-3" style={{ transitionDelay: '0.4s' }}>
-                                <h3 data-tina-field={tinaField(block, "stagesTitle3")}>{block.stagesTitle3}</h3>
-                                <p data-tina-field={tinaField(block, "stagesText3")}>{block.stagesText3}</p>
-                            </div>
-                        )}
                     </div>
                 </section>
               );
