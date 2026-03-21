@@ -98,11 +98,13 @@ h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 20px; line-height: 1.
 
 .bento-card {
     flex: 1 1 300px;
-    max-width: 350px; /* Keeps them from getting too wide */
+    max-width: 350px; 
     background: var(--card-bg); backdrop-filter: blur(15px); padding: 50px 40px; 
     border-radius: 30px; border: 1px solid var(--card-border);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, background 0.4s ease;
-    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    
+    /* THE FIX IS ON THIS LINE BELOW */
+    display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center;
 }
 
 .image-card { 
