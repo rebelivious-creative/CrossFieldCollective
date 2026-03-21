@@ -8,6 +8,9 @@ navLinks:
   - label: Services
     url: /services
     newTab: true
+  - label: Our Vision
+    url: /vision
+    newTab: false
 blocks:
   - heroTitle: |
       Building Growth Infrastructure
