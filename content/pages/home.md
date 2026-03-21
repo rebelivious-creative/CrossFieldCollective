@@ -5,39 +5,38 @@ bgColor: '#020112'
 glowColor1: '#0028a3'
 glowColor2: '#6d79c2'
 navLinks:
-  - label: Services
-    url: /services
-    newTab: true
   - label: Our Vision
     url: /vision
     newTab: false
 blocks:
   - heroTitle: |
-      Building Growth Infrastructure
-      for Ambitious SMEs
-    heroSub: 'Crossfield Collective aligns brand, systems, automation, and strategic networks to help SMEs scale beyond survival mode.'
+      Empowering Everyday Entrepreneurship
+    heroSub: 'Building basic infrastructure to turn neighbourhood talents into sustainable businesses.'
     _template: hero
-  - aboutText: We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.
-    _template: about
-  - ecoImg: /assets/ecosystem.jpg
-    ecoTitle1: Brand Architecture
-    ecoText1: 'We refine positioning, narrative, and market clarity so growth is aligned and differentiated.'
-    ecoTitle2: Automation Design
-    ecoText2: We integrate smart automation to reduce manual strain and increase efficiency.
-    ecoTitle3: Strategic Network
-    ecoText3: 'We connect SMEs to the right ecosystem, including cross-border partnerships, SME collaborations, and industry introductions.'
+  - sectionTitle: The Growth Ecosystem
+    ecoImg: /assets/ecosystem.jpg
+    boxes:
+      - title: F&B Home Kit
+        text: Costing & Pricing Templates, Food Safety SOPs, Supplier Sourcing Guides, and Packaging.
+      - title: Service Business Kit
+        text: Client Contract Templates, Booking & Scheduling SOPs, and Client Onboarding Guides.
+      - title: Retail Products Kit
+        text: Inventory Tracking Sheets, Shipping & Logistics SOPs, and Marketplace Setup.
     _template: ecosystem
-  - stagesImg: /assets/stages.jpg
-    stagesTitle1: Foundation!
-    stagesText1: 'For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.'
-    stagesTitle2: Structure
-    stagesText2: 'For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.'
-    stagesTitle3: Expansion
-    stagesText3: 'For SMEs entering regional or new market growth. Outcome: Sustainable, structured expansion.'
+  - sectionTitle: Our Growth Timeline
+    stagesImg: /assets/stages.jpg
+    boxes:
+      - title: 'Stage 1: Enable'
+        text: Helping everyday people start small businesses with confidence so they can focus on their craft.
+      - title: 'Stage 2: Grow'
+        text: A growing network of small entrepreneurs supporting one another.
+      - title: 'Stage 3: Connect'
+        text: A local decentralized commerce connecting communities with independent business owners.
+      - title: 'Stage 4: Transform'
+        text: Turning everyday skills into sustainable livelihoods and forming small ecosystems.
     _template: stages
   - footerTitle: Ready to build your growth infrastructure?
-    footerSub: All engagements begin with a Growth Diagnostic Session.
+    footerSub: Download our full Pitch Deck to see the data behind our ecosystem.
     contactPhone: '60123456789'
     _template: footer
 ---
-
