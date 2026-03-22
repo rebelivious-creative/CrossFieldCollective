@@ -1,5 +1,14 @@
 // lib/map-utils.ts
 
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+// ... your extractCoordinates function stays down here!
+
 export function extractCoordinates(url: string) {
   // This Regex looks for the "@" symbol followed by two long numbers separated by a comma
   const regex = /@(-?\d+\.\d+),(-?\d+\.\d+)/;
