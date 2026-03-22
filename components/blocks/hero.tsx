@@ -19,6 +19,9 @@ import { Button } from '../ui/button';
 import HeroVideoDialog from '../ui/hero-video-dialog';
 import { Transition } from 'motion/react';
 
+// IMPORT THE GLOBE
+import NetworkGlobe from "../NetworkGlobe";
+
 const transitionVariants = {
   container: {
     visible: {
@@ -48,7 +51,6 @@ const transitionVariants = {
 };
 
 export const Hero = ({ data }: { data: PageBlocksHero }) => {
-  // Extract the background style logic into a more readable format
   let gradientStyle: React.CSSProperties | undefined = undefined;
   if (data.background) {
     const colorName = data.background
@@ -94,6 +96,14 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
               </div>
             ))}
         </AnimatedGroup>
+
+        {/* --- 3D GLOBE PLACEMENT --- */}
+        {/* We place it right here so it sits between the hero text and the next ecosystem section! */}
+        <div className="w-full flex justify-center mt-12 lg:mt-20">
+            <NetworkGlobe />
+        </div>
+        {/* ------------------------- */}
+
       </div>
 
       {data.image && (
