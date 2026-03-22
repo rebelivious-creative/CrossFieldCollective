@@ -117,40 +117,7 @@ export default defineConfig({
             templates: [heroBlock, aboutBlock, ecosystemBlock, stagesBlock, footerBlock],
           },
         ],
-      },
-// --- COLLECTION 1: PAGES ---
-      {
-        name: "page",
-        label: "Pages",
-        path: "content/pages",
-        format: "md",
-        fields: [
-          { type: "boolean", name: "useDefaultTheme", label: "Use Default Theme" },
-          { type: "string", name: "fontSelection", label: "Font Selection" },
-          { type: "string", name: "bgColor", label: "Background Color", ui: { component: "color" } },
-          { type: "string", name: "glowColor1", label: "Glow Color 1", ui: { component: "color" } },
-          { type: "string", name: "glowColor2", label: "Glow Color 2", ui: { component: "color" } },
-          {
-            type: "object",
-            list: true,
-            name: "navLinks",
-            label: "Navigation Links",
-            ui: { itemProps: (item: any) => ({ label: item?.label || "New Link" }) },
-            fields: [
-              { type: "string", name: "label", label: "Label" },
-              { type: "string", name: "url", label: "URL" },
-              { type: "boolean", name: "newTab", label: "Open in new tab?" },
-            ],
-          },
-          {
-            type: "object",
-            list: true,
-            name: "blocks",
-            label: "Page Sections (Add & Drag)",
-            templates: [heroBlock, aboutBlock, ecosystemBlock, stagesBlock, footerBlock],
-          },
-        ],
-      },
+      }
     ],
   },
 });
