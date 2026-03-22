@@ -1,5 +1,6 @@
 import React from 'react';
 import NetworkGlobe from '../NetworkGlobe';
+import type { Template } from 'tinacms';
 
 export const Hero = ({ data }: any) => {
   return (
@@ -27,4 +28,28 @@ export const Hero = ({ data }: any) => {
 
     </div>
   );
+};
+
+// 3. TINA CMS SCHEMA (Tells the admin panel how to edit this block)
+export const heroBlockSchema: Template = {
+  name: 'hero',
+  label: 'Hero Section',
+  ui: {
+    defaultItem: {
+      heroTitle: 'THE GLOBAL NETWORK',
+      heroSub: 'Our growing ecosystem of independent businesses and local commerce hubs.',
+    },
+  },
+  fields: [
+    {
+      type: 'string',
+      label: 'Main Headline',
+      name: 'heroTitle',
+    },
+    {
+      type: 'string',
+      label: 'Sub-headline Tagline',
+      name: 'heroSub',
+    },
+  ],
 };
