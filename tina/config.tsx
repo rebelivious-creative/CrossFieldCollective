@@ -87,7 +87,7 @@ export default defineConfig({
     collections: [
       // --- COLLECTION 1: PAGES ---
       {
-        name: "pages",
+        name: "page",
         label: "Pages",
         path: "content/pages",
         format: "md",
