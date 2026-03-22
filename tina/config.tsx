@@ -1,4 +1,3 @@
-// Wake up TinaCloud
 import { defineConfig, Template } from "tinacms";
 
 // --- 1. DEFINE THE LEGO BLOCKS ---
@@ -76,52 +75,75 @@ const footerBlock: Template = {
   ],
 };
 
-
 // --- 2. MAIN CONFIGURATION ---
 
 export default defineConfig({
-  // Adding the fallback strings here:
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "9d390a17-d083-4542-b443-541038017adc",
   branch: process.env.NEXT_PUBLIC_TINA_BRANCH || "main",
   token: process.env.TINA_CLIENT_TOKEN, 
   build: { outputFolder: "admin", publicFolder: "public" },
-  // ... the rest of your code stays the same
   media: { tina: { mediaRoot: "assets", publicFolder: "public" } },
   schema: {
     collections: [
+      // --- COLLECTION 1: PAGES ---
       {
-        name: "page",
+        name: "pages",
         label: "Pages",
         path: "content/pages",
+        format: "md",
         fields: [
-          // Theme settings stay permanently at the top
-          { type: "boolean", name: "useDefaultTheme", label: "Use Default Crossfield Blue Theme?", description: "Turn OFF to use custom colors." },
-          { type: "string", name: "fontSelection", label: "Website Font", options: ["Inter", "Playfair Display", "Syne", "Space Grotesk", "Helvetica Neue"] },
-          { type: "string", name: "bgColor", label: "Custom Background Color", ui: { component: "color" } },
-          { type: "string", name: "glowColor1", label: "Custom Gradient Glow 1", ui: { component: "color" } },
-          { type: "string", name: "glowColor2", label: "Custom Gradient Glow 2", ui: { component: "color" } },
-          
-          // DYNAMIC NAVIGATION LINKS (So she can add new pages to the menu)
+          { type: "boolean", name: "useDefaultTheme", label: "Use Default Theme" },
+          { type: "string", name: "fontSelection", label: "Font Selection" },
+          { type: "string", name: "bgColor", label: "Background Color", ui: { component: "color" } },
+          { type: "string", name: "glowColor1", label: "Glow Color 1", ui: { component: "color" } },
+          { type: "string", name: "glowColor2", label: "Glow Color 2", ui: { component: "color" } },
           {
             type: "object",
             list: true,
             name: "navLinks",
-            label: "Navigation Menu Links",
+            label: "Navigation Links",
             ui: { itemProps: (item: any) => ({ label: item?.label || "New Link" }) },
             fields: [
-              { type: "string", name: "label", label: "Button Name" },
-              { type: "string", name: "url", label: "Link URL" },
-              { type: "boolean", name: "newTab", label: "Open in New Tab?" }, // THE SWITCH
+              { type: "string", name: "label", label: "Label" },
+              { type: "string", name: "url", label: "URL" },
+              { type: "boolean", name: "newTab", label: "Open in new tab?" },
             ],
           },
-
-          // THE MODULAR SYSTEM
           {
             type: "object",
             list: true,
             name: "blocks",
             label: "Page Sections (Add & Drag)",
             templates: [heroBlock, aboutBlock, ecosystemBlock, stagesBlock, footerBlock],
+          },
+        ],
+      },
+      // --- COLLECTION 2: GLOBAL NETWORK MAP ---
+      {
+        name: "locations",
+        label: "Global Network (3D Map)",
+        path: "content/locations",
+        format: "md",
+        fields: [
+          {
+            type: "string",
+            name: "companyName",
+            label: "Company / Partner Name",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Short Description",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "googleMapsUrl",
+            label: "Google Maps URL (Must be copied from Desktop browser bar)",
+            description: "Example: https://www.google.com/maps/place/Johor+Bahru/@1.492659,103.7413591,12z",
+            required: true,
           },
         ],
       },
