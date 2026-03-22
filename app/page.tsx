@@ -2,7 +2,6 @@ import React from "react";
 import client from "../tina/__generated__/client";
 import ClientPage from "./client-page";
 import NetworkGlobe from "../components/NetworkGlobe";
-
 export default async function Page() {
   // @ts-ignore
   const res = await client.queries.page({ relativePath: "home.md" });
