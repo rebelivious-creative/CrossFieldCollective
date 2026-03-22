@@ -5,7 +5,6 @@ import ClientPage from "../client-page";
 export default async function Page({ params }: any) {
   const { urlSegments } = await params;
 
-  // Fetch the data for the specific page (e.g., vision.md)
   const res = await client.queries.pages({
     relativePath: `${urlSegments.join('/')}.md`,
   });
@@ -16,10 +15,17 @@ export default async function Page({ params }: any) {
 export async function generateStaticParams() {
   try {
     const pages = await client.queries.pagesConnection();
-    return pages.data?.pagesConnection?.edges?.map((edge) => ({
+    const paths = pages.data?.pagesConnection?.edges?.map((edge) => ({
       urlSegments: edge?.node?._sys.breadcrumbs,
     })) || [];
+    
+    // NEXT.JS 15 BUG FIX: Never return an empty array. 
+    // This forces the server to build the Vision page and prevents the crash.
+    if (paths.length === 0) {
+      return [{ urlSegments: ['vision'] }];
+    }
+    return paths;
   } catch (error) {
-    return [];
+    return [{ urlSegments: ['vision'] }];
   }
 }
