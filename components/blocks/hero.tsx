@@ -22,9 +22,7 @@ import { Transition } from 'motion/react';
 import NetworkGlobe from '../NetworkGlobe';
 
 const transitionVariants = {
-  container: {
-    visible: { transition: { staggerChildren: 0.05, delayChildren: 0.75 } },
-  },
+  container: { visible: { transition: { staggerChildren: 0.05, delayChildren: 0.75 } } },
   item: {
     hidden: { opacity: 0, filter: 'blur(12px)', y: 12 },
     visible: { opacity: 1, filter: 'blur(0px)', y: 0, transition: { type: 'spring', bounce: 0.3, duration: 1.5 } as Transition },
@@ -63,7 +61,6 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
               <div key={index} data-tina-field={tinaField(action)} className='bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5'>
                 <Button asChild size='lg' variant={action?.type === 'link' ? 'ghost' : 'default'} className='rounded-xl px-5 text-base'>
                   <Link href={action?.link || '/'}>
-                    {/* THIS WAS THE CRASH! Safely checks if icon AND name exist before rendering */}
                     {action?.icon?.name && <Icon data={action.icon} />}
                     <span className='text-nowrap'>{action?.label || 'Click Here'}</span>
                   </Link>
@@ -72,8 +69,9 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
             ))}
         </AnimatedGroup>
 
-        {/* 2. SAFE GLOBE PLACEMENT */}
-        <div className="w-full flex justify-center mt-12 lg:mt-20">
+        {/* 2. SAFE GLOBE PLACEMENT WITH RED TRACE TEXT */}
+        <div className="w-full flex flex-col items-center justify-center mt-12 lg:mt-20">
+            <h1 className="text-red-500 text-4xl font-bold mb-4">GLOBE SHOULD BE HERE</h1>
             <NetworkGlobe />
         </div>
 
@@ -129,21 +127,12 @@ export const heroBlockSchema: Template = {
     defaultItem: {
       tagline: "Here's some text above the other text",
       headline: 'This Big Text is Totally Awesome',
-      text: 'Phasellus scelerisque, libero eu finibus rutrum, risus risus accumsan libero, nec molestie urna dui a leo.',
     },
   },
   fields: [
     sectionBlockSchemaField as any,
-    {
-      type: 'string',
-      label: 'Headline',
-      name: 'headline',
-    },
-    {
-      type: 'string',
-      label: 'Tagline',
-      name: 'tagline',
-    },
+    { type: 'string', label: 'Headline', name: 'headline' },
+    { type: 'string', label: 'Tagline', name: 'tagline' },
     {
       label: 'Actions',
       name: 'actions',
@@ -153,14 +142,9 @@ export const heroBlockSchema: Template = {
         defaultItem: {
           label: 'Action Label',
           type: 'button',
-          icon: {
-              name: "Tina",
-              color: "white",
-              style: "float",
-          },
+          icon: { name: "Tina", color: "white", style: "float" },
           link: '/',
         },
-        // ADDED SAFETY CHECK HERE TOO
         itemProps: (item) => ({ label: item?.label || 'Button' }),
       },
       fields: [
