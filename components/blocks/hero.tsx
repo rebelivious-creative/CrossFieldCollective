@@ -98,7 +98,8 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         </AnimatedGroup>
 
         {/* 2. SAFE GLOBE PLACEMENT */}
-        <div className="w-full flex justify-center mt-12 lg:mt-20">
+        <div className="w-full flex flex-col items-center justify-center mt-12 lg:mt-20">
+            <h1 className="text-red-500 text-4xl font-bold mb-4">GLOBE SHOULD BE HERE</h1>
             <NetworkGlobe />
         </div>
 
