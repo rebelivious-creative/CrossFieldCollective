@@ -3,6 +3,10 @@ import { useEffect } from "react";
 import Script from "next/script";
 import { useTina, tinaField } from "tinacms/dist/react";
 
+// 1. IMPORT YOUR GLOBE HERE (Dynamically, so it doesn't crash the server)
+import dynamic from 'next/dynamic';
+const NetworkGlobe = dynamic(() => import('../components/NetworkGlobe'), { ssr: false });
+
 declare global {
   // biome-ignore lint/style/noNamespace: Required to declare custom 3D web components
   namespace JSX {
@@ -101,7 +105,7 @@ export default function ClientPage(props: any) {
           <div className="pillar p8" style={dynamicGlow2}></div>
       </div>
 
-<header>
+      <header>
           <div className="logo">Crossfield Collective</div>
           <nav>
               {data.page.navLinks?.map((link: any, index: number) => (
@@ -138,6 +142,11 @@ export default function ClientPage(props: any) {
                     <p className="hero-sub" id="hero_sub" data-tina-field={tinaField(block, "heroSub")}>
                         {block.heroSub}
                     </p>
+                    
+                    {/* 2. THE NETWORK GLOBE RENDERED RIGHT BELOW THE SUBTEXT */}
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
+                        <NetworkGlobe />
+                    </div>
                 </section>
               );
             case "PageBlocksAbout":
