@@ -145,7 +145,7 @@ export default function ClientPage(props: any) {
                     
                     {/* 2. THE NETWORK GLOBE RENDERED RIGHT BELOW THE SUBTEXT */}
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
-                        <NetworkGlobe />
+                        <NetworkGlobe glowColor1={customGlow1} glowColor2={customGlow2} />
                     </div>
                 </section>
               );
